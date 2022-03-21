@@ -11,7 +11,14 @@ playBtn.addEventListener("click", () => {
 });
 
 function progressNow(audioElement) {
+
     audioElement.addEventListener('loadeddata', () => {
+
+        if (audioElement.paused) {
+            playBtn.querySelector("img").src = "assets/play-fill.svg";
+        } else if (audioElement.played) {
+            playBtn.querySelector("img").src = "assets/pause-fill.svg";
+        }
 
         let duration = audioElement.duration;
         globalThis.progressInterval = setInterval(function() {
@@ -23,6 +30,13 @@ function progressNow(audioElement) {
 
             progressNowSpan.textContent = `${minutes}:${seconds}`;
 
+            if (timeNow >= duration) {
+                clearInterval(progressInterval);
+            }
+
+        }, 1000);
+        globalThis.progressBarInterval = setInterval(function() {
+            let timeNow = audioElement.currentTime;
             var durationMinutes = Math.floor(duration / 60);
             var durationSeconds = Math.floor(duration - durationMinutes * 60);
 
@@ -35,12 +49,7 @@ function progressNow(audioElement) {
             var progressPercentageInStr = progressPercentage.toString() + "%";
 
             progressBar.style.width = progressPercentageInStr;
-
-            if (timeNow >= duration) {
-                clearInterval(progressInterval);
-            }
-
-        }, 1000);
+        }, 100);
     });
 }
 

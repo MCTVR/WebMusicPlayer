@@ -67,11 +67,11 @@ function fileHandler(UA) {
 
                 var file = await fileHandle.getFile();
 
+                showMusicInfo(file);
+
                 if (file.type.indexOf("audio/x-m4a") != -1) {
                     file = new File([file], file.name.slice(0,file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
                 }
-
-                showMusicInfo(file);
 
                 audio(file);
 
@@ -88,11 +88,11 @@ function fileHandler(UA) {
 
                 var file = musicInputFile.files[musicInputFile.files.length-1];
 
+                showMusicInfo(file);
+
                 if (file.type.indexOf("audio/x-m4a") != -1) {
                     file = new File([file], file.name.slice(0,file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
                 }
-    
-                showMusicInfo(file);
 
                 audio(file);
     
