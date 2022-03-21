@@ -9,6 +9,13 @@ const app = express();
 app.use(compression());
 app.use(express.static("static"));
 
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Content-Type", "*");
+    res.setHeader("Content-Range", "bytes");
+    next();
+});
+
 app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
 });

@@ -21,14 +21,20 @@ function showMusicInfo(file) {
 
     jsmediatags.read(file, {
         onSuccess: function(tag) {
-            musicTitleSpan.textContent = tag.tags.title;
-            musicArtistSpan.textContent = tag.tags.artist;
-            const { data, format } = tag.tags.picture;
-            let base64String = "";
-            for (var i = 0; i < data.length; i++) {
-                base64String += String.fromCharCode(data[i]);
+            try {
+                musicTitleSpan.textContent = tag.tags.title;
+                musicArtistSpan.textContent = tag.tags.artist;
+                const { data, format } = tag.tags.picture;
+                let base64String = "";
+                for (var i = 0; i < data.length; i++) {
+                    base64String += String.fromCharCode(data[i]);
+                }
+                musicArtImg.src = `data:${data.format};base64,${window.btoa(base64String)}`;
+            } catch (error) {
+                musicTitleSpan.textContent = file.name.slice(0,file.name.lastIndexOf("."));
+                musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
+                musicArtImg.src = "assets/music-art-default.webp";
             }
-            musicArtImg.src = `data:${data.format};base64,${window.btoa(base64String)}`;
         },
         onError: function(error) {
             console.log(error);
@@ -50,17 +56,24 @@ function fileHandler(UA) {
                     {
                         description: "Audio",
                         accept: {
-                            "audio/*": [".flac"]
+                            "audio/*": ['.wav', '.ogg', '.mp3', '.mp4', '.aac', '.flac', '.webm'],
                         }
                     }
                 ],
+                excludeAcceptAllOption: true,
             };
             const [fileHandle] = await window.showOpenFilePicker(options);
             if (fileHandle.kind == "file") {
 
                 var file = await fileHandle.getFile();
 
+                if (file.type.indexOf("audio/x-m4a") != -1) {
+                    file = new File([file], file.name.slice(0,file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
+                }
+
                 showMusicInfo(file);
+
+                audio(file);
 
             } else if (fileHandle.kind == "directory") {
                 console.log("directory");
@@ -71,13 +84,17 @@ function fileHandler(UA) {
         
         musicArt.addEventListener("click", () => {
 
-            musicInputFile.addEventListener("change", () => {
+            musicInputFile.addEventListener("change", async () => {
 
                 var file = musicInputFile.files[musicInputFile.files.length-1];
+
+                if (file.type.indexOf("audio/x-m4a") != -1) {
+                    file = new File([file], file.name.slice(0,file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
+                }
     
                 showMusicInfo(file);
 
-                
+                audio(file);
     
             });
 
