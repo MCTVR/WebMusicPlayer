@@ -22,14 +22,14 @@ function showMusicInfo(file) {
     jsmediatags.read(file, {
         onSuccess: function(tag) {
             try {
-                musicTitleSpan.textContent = tag.tags.title;
-                musicArtistSpan.textContent = tag.tags.artist;
                 const { data, format } = tag.tags.picture;
                 let base64String = "";
                 for (var i = 0; i < data.length; i++) {
                     base64String += String.fromCharCode(data[i]);
                 }
                 musicArtImg.src = `data:${data.format};base64,${window.btoa(base64String)}`;
+                musicTitleSpan.textContent = tag.tags.title;
+                musicArtistSpan.textContent = tag.tags.artist;
             } catch (error) {
                 musicTitleSpan.textContent = file.name.slice(0,file.name.lastIndexOf("."));
                 musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
