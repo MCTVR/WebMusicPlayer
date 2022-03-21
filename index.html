@@ -5,30 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Music Player</title>
     <link rel="stylesheet" href="css/index.css">
+    <script defer type="module" src="js/ui.js"></script>
+    <script defer type="module" src="js/fileHandler.js"></script>
+    <script src="js/jsmediatags.min.js"></script>
     <script>
         if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("./sw.js");
+            navigator.serviceWorker.register("js/sw.js");
         }
     </script>
 </head>
 <body>
     <div class="bg">
+        <!-- <input type="file" id="test" accept="audio/*"/> -->
         <div class="player-container">
             <div class="player-area-container">
                 <div class="player-area">
                     <div class="music-art">
-                        <img class="music-art-img" src="assets/htt.webp" alt="">
+                        <input id="music-input-file" type="file" accept="audio/*" hidden multiple>
+                        <img class="music-art-img" src="assets/plus.webp" alt="">
                     </div>
 
                     <div class="music-info">
                         <div class="music-title">
-                            <span id="music-title-span">ふわふわ時間</span>
+                            <span id="music-title-span"></span>
                         </div>
                         <div class="music-artist">
-                            <span id="music-artist-span">秋山澪</span>
+                            <span id="music-artist-span"></span>
                         </div>
                         <div class="music-res">
-                            <span id="music-res-span">44.1KHz/16bit</span>
+                            <span id="music-res-span"></span>
                         </div>
                     </div>
 
@@ -48,13 +53,13 @@
                         </div>
                         <div class="music-controls-icon-container">
                             <div class="music-controls-icon" id="backward-icon">
-                                <img src="assets/skip-backward-fill.svg" alt="Skip/Backward">
+                                <img src="assets/skip-backward-fill.svg" draggable="false" alt="Skip/Backward">
                             </div>
                             <div class="music-controls-icon" id="play-icon">
-                                <img src="assets/play-fill.svg" alt="Play" />
+                                <img src="assets/play-fill.svg" draggable="false" alt="Play" />
                             </div>
                             <div class="music-controls-icon" id="forward-icon">
-                                <img src="assets/skip-forward-fill.svg" alt="Skip/Forward">
+                                <img src="assets/skip-forward-fill.svg" draggable="false" alt="Skip/Forward">
                             </div>
                         </div>
                     </div>

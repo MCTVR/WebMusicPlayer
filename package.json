@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "compression": "^1.7.4",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "music-metadata-browser": "^2.5.5"
   }
 }
