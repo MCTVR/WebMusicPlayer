@@ -187,7 +187,7 @@ body {
     border-radius: 10px;
     width: 96%;
     height: 5px;
-    background-color: #3FfBff;
+    background-color: rgba(200, 200, 200, .5);
 }
 
 .progress-indicators-container {
@@ -216,4 +216,12 @@ body {
     color: rgba(255, 255, 255, .7);
     text-align: right;
     height: 100%;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, .8);
+    border-radius: inherit;
+    transition: .5s;
 }
