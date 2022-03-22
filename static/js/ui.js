@@ -6,8 +6,6 @@ const progressNowSpan = document.querySelector("span#progress-now-span");
 const progressDurationSpan = document.querySelector("span#progress-duration-span");
 const progressBar = document.querySelector("div.progress-bar");
 
-var progressInterval;
-var progressBarInterval;
 
 playBtn.addEventListener("mouseover", () => {
     anime.remove(playBtn);
@@ -49,58 +47,78 @@ playBtn.addEventListener("mouseup", () => {
     });
 });
 
-function progressNow(audioElement) {
+let playAudio = (audioElement) => {
+    audioElement.play();
+    playBtnImg.src = "assets/pause-fill.svg";
+}
 
-    audioElement.addEventListener('loadeddata', () => {
-        progressInterval = undefined;
-        progressBarInterval = undefined;
+let pauseAudio = (audioElement) => {
+    audioElement.pause();
+    playBtnImg.src = "assets/play-fill.svg";
+}
 
-        playBtn.addEventListener("click", () => {
-            audioElement.paused ? audioElement.play() : audioElement.pause();
-            audioElement.paused ? playBtnImg.src = "assets/play-fill.svg" : playBtnImg.src = "assets/pause-fill.svg";
-        });
+function playBtnControl(audioElement) {
 
-        let duration = audioElement.duration;
+    audioElement.addEventListener("loadeddata", () => {
 
-        progressInterval = setInterval(function() {
-            let timeNow = audioElement.currentTime;
-            var minutes = Math.floor(timeNow / 60);
-            var seconds = Math.floor(timeNow - minutes * 60);
-
-            if (seconds <= 9) { seconds = `0${seconds}`; } else { seconds = seconds;}
-
-            progressNowSpan.textContent = `${minutes}:${seconds}`;
-
-            if (audioElement.ended) {
-                playBtnImg.src = "assets/play-fill.svg";
-                clearInterval(progressInterval);
-            }
-
-        }, 1000);
+        playBtnImg.src = "assets/play-fill.svg";
         
-        let durationMinutes = Math.floor(duration / 60);
-        let durationSeconds = Math.floor(duration - durationMinutes * 60);
-
-        if (durationSeconds <= 9) { durationSeconds = `0${durationSeconds}`; } else { durationSeconds = durationSeconds;}
-
-        progressDurationSpan.textContent = `${durationMinutes}:${durationSeconds}`;
-
-        progressBarInterval = setInterval(function() {
-            let timeNow = audioElement.currentTime;
-
-            var progressPercentage = (timeNow / duration) * 100;
-            
-            var progressPercentageInStr = progressPercentage.toString() + "%";
-
-            progressBar.style.width = progressPercentageInStr;
-
-            if (timeNow >= duration) {
+        audioElement.addEventListener('ended', () => {
+            playBtnImg.src = "assets/play-fill.svg";
+            playBtn.addEventListener("click", () => {
+                clearInterval(progressInterval);
                 clearInterval(progressBarInterval);
-            }
-
-        }, 200);
-
+                playAudio(audioElement);
+                progressNow(audioElement);
+            });
+        });
+        playBtn.addEventListener("click", () => {
+            audioElement.paused ? playAudio(audioElement) : pauseAudio(audioElement);
+        });
     });
 }
 
-export default progressNow;
+function progressNow(audioElement, times) {
+    if (times > 1) {
+        clearInterval(progressInterval);
+        clearInterval(progressBarInterval);
+    }
+
+    playBtnControl(audioElement);
+
+    globalThis.progressInterval = setInterval(() => {
+        
+        let timeNow = audioElement.currentTime;
+        var minutes = Math.floor(timeNow / 60);
+        var seconds = Math.floor(timeNow - minutes * 60);
+
+        if (seconds <= 9) { seconds = `0${seconds}`; } else { seconds = seconds; }
+
+        progressNowSpan.textContent = `${minutes}:${seconds}`;
+
+    }, 500);
+
+    globalThis.progressBarInterval = setInterval(() => {
+
+        let duration = audioElement.duration;
+
+        let durationMinutes = Math.floor(duration / 60);
+        let durationSeconds = Math.floor(duration - durationMinutes * 60);
+    
+        if (durationSeconds <= 9) { durationSeconds = `0${durationSeconds}`; } else { durationSeconds = durationSeconds; }
+    
+        progressDurationSpan.textContent = `${durationMinutes}:${durationSeconds}`;
+
+        let timeNow = audioElement.currentTime;
+
+        var progressPercentage = (timeNow / duration) * 100;
+
+        var progressPercentageInStr = progressPercentage.toString() + "%";
+
+        progressBar.style.width = progressPercentageInStr;
+
+    }, 200);
+
+}
+
+export { progressNow };

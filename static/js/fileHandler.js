@@ -56,7 +56,7 @@ function fileHandler(UA) {
                     {
                         description: "Audio",
                         accept: {
-                            "audio/*": ['.wav', '.ogg', '.mp3', '.mp4', '.aac', '.flac', '.webm'],
+                            "audio/*": ['.wav', '.ogg', '.mp3', '.mp4', '.aac', '.flac', '.webm', '.m4a', '.aiff', '.aif'],
                         }
                     }
                 ],

@@ -76,6 +76,7 @@ body {
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
+    width: 60%;
     /* background-color: aqua; */
 }
 
@@ -122,6 +123,7 @@ body {
 }
 
 .music-res {
+    margin-bottom: 5px;
     font-size: 14px;
     width: 25%;
     transition: .4s;
