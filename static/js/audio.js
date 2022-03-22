@@ -1,5 +1,4 @@
 import progressNow from "./ui.js";
-const playControl = document.querySelector("div#play-icon").querySelector("img");
 var audioElement = new Audio();
 
 async function audio(file) {
@@ -9,10 +8,6 @@ async function audio(file) {
     audioElement.crossOrigin = "anonymous";
     audioElement.src = URL.createObjectURL(blob);
     URL.revokeObjectURL(blob);
-
-    playControl.addEventListener("click", () => {
-        audioElement.paused ? audioElement.play() : audioElement.pause();
-    });
 
     progressNow(audioElement);
 }

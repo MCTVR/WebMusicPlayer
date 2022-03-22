@@ -30,6 +30,7 @@ function showMusicInfo(file) {
                 musicArtImg.src = `data:${data.format};base64,${window.btoa(base64String)}`;
                 musicTitleSpan.textContent = tag.tags.title;
                 musicArtistSpan.textContent = tag.tags.artist;
+                musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
             } catch (error) {
                 musicTitleSpan.textContent = file.name.slice(0,file.name.lastIndexOf("."));
                 musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
@@ -37,7 +38,6 @@ function showMusicInfo(file) {
             }
         },
         onError: function(error) {
-            console.log(error);
             musicTitleSpan.textContent = file.name.slice(0,file.name.lastIndexOf("."));
             musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
             musicArtImg.src = "assets/music-art-default.webp";
