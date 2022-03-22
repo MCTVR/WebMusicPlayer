@@ -5,7 +5,9 @@ var times = 0;
 
 function audio(file) {
     
-    if (audioElement.src !== "") {
+    if (times > 1) {
+        times = 0;
+        console.log(audioElement.src);
         audioElement.pause();
         clearInterval(progressInterval);
         clearInterval(progressBarInterval);
@@ -15,9 +17,10 @@ function audio(file) {
     
     (async () => {
         times += 1;
-        const blob = new Blob([ await file.arrayBuffer()], { type: file.type });
+        let blob = new Blob([ await file.arrayBuffer()], { type: file.type });
         audioElement.crossOrigin = "anonymous";
         audioElement.src = URL.createObjectURL(blob);
+        blob = null;
         progressNow(audioElement, times);
     })();
 }

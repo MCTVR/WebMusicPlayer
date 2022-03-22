@@ -71,6 +71,7 @@ function fileHandler(UA) {
 
                 if (file.type.indexOf("audio/x-m4a") != -1) {
                     file = new File([file], file.name.slice(0,file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
+                    console.log(file);
                 }
 
                 audio(file);
@@ -80,7 +81,7 @@ function fileHandler(UA) {
             }
         });
 
-    } else {
+    } else if (UA === "Safari") {
         
         musicArt.addEventListener("click", () => {
 

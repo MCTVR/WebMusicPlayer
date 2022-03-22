@@ -6,9 +6,7 @@ const progressNowSpan = document.querySelector("span#progress-now-span");
 const progressDurationSpan = document.querySelector("span#progress-duration-span");
 const progressBar = document.querySelector("div.progress-bar");
 
-
 playBtn.addEventListener("mouseover", () => {
-    anime.remove(playBtn);
     anime({
         targets: playBtn,
         scale: 1.02,
@@ -18,7 +16,6 @@ playBtn.addEventListener("mouseover", () => {
 });
 
 playBtn.addEventListener("mouseleave", () => {
-    anime.remove(playBtn);
     anime({
         targets: playBtn,
         scale: 1,
@@ -28,7 +25,6 @@ playBtn.addEventListener("mouseleave", () => {
 });
 
 playBtn.addEventListener("mousedown", () => {
-    anime.remove(playBtn);
     anime({
         targets: playBtn,
         scale: 0.975,
@@ -38,7 +34,6 @@ playBtn.addEventListener("mousedown", () => {
 });
 
 playBtn.addEventListener("mouseup", () => {
-    anime.remove(playBtn);
     anime({
         targets: playBtn,
         scale: 1,
@@ -47,41 +42,49 @@ playBtn.addEventListener("mouseup", () => {
     });
 });
 
-let playAudio = (audioElement) => {
-    audioElement.play();
+function playAudio(audioElement) {
     playBtnImg.src = "assets/pause-fill.svg";
+    audioElement.play();
 }
 
-let pauseAudio = (audioElement) => {
-    audioElement.pause();
+function pauseAudio(audioElement) {
     playBtnImg.src = "assets/play-fill.svg";
+    audioElement.pause();
 }
 
 function playBtnControl(audioElement) {
 
     audioElement.addEventListener("loadeddata", () => {
-
+        let times = 0;
         playBtnImg.src = "assets/play-fill.svg";
         
-        audioElement.addEventListener('ended', () => {
-            playBtnImg.src = "assets/play-fill.svg";
-            playBtn.addEventListener("click", () => {
-                clearInterval(progressInterval);
-                clearInterval(progressBarInterval);
+        playBtnImg.addEventListener("click", () => {
+            times += 1;
+            if (times % 2 !== 0) {
+                console.log(times);
+                times = 1;
                 playAudio(audioElement);
-                progressNow(audioElement);
-            });
+            } else if (times % 2 === 0) {
+                console.log(times);
+                times = 0;
+                pauseAudio(audioElement);
+            }
         });
-        playBtn.addEventListener("click", () => {
-            audioElement.paused ? playAudio(audioElement) : pauseAudio(audioElement);
-        });
+
     });
+
 }
 
 function progressNow(audioElement, times) {
     if (times > 1) {
-        clearInterval(progressInterval);
-        clearInterval(progressBarInterval);
+        try {
+            console.log(times);
+            clearInterval(progressInterval);
+            clearInterval(progressBarInterval);
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
     playBtnControl(audioElement);
@@ -106,8 +109,16 @@ function progressNow(audioElement, times) {
         let durationSeconds = Math.floor(duration - durationMinutes * 60);
     
         if (durationSeconds <= 9) { durationSeconds = `0${durationSeconds}`; } else { durationSeconds = durationSeconds; }
-    
-        progressDurationSpan.textContent = `${durationMinutes}:${durationSeconds}`;
+
+        if (isNaN(durationMinutes) || isNaN(durationSeconds)) {
+
+            progressDurationSpan.textContent = "0:00";
+
+        } else {
+
+            progressDurationSpan.textContent = `${durationMinutes}:${durationSeconds}`;
+
+        }
 
         let timeNow = audioElement.currentTime;
 
@@ -116,6 +127,16 @@ function progressNow(audioElement, times) {
         var progressPercentageInStr = progressPercentage.toString() + "%";
 
         progressBar.style.width = progressPercentageInStr;
+
+        if (timeNow >= audioElement.duration) {
+            playBtnImg.src = "assets/play-fill.svg";
+            playBtn.addEventListener("click", () => {
+                clearInterval(progressInterval);
+                clearInterval(progressBarInterval);
+                playAudio(audioElement);
+                progressNow(audioElement);
+            });
+        }
 
     }, 200);
 

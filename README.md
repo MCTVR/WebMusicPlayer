@@ -1,2 +1,2 @@
 # WebMusicPlayer
- Play your local audio files with your Chrome or Edge browser!
+ Play your local audio files with your Browser!
