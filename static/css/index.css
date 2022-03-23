@@ -109,9 +109,11 @@ body {
 }
 
 .music-title {
+    width: 100%;
     font-size: 23px;
     transition: .3s;
     text-shadow: 0 0 2px rgba(0, 0, 0, .3);
+    overflow-wrap: break-word;
 }
 
 .music-artist {
@@ -123,7 +125,9 @@ body {
 }
 
 .music-res {
+    margin-bottom: 1.2rem;
     font-size: 14px;
+    height: 14px;
     width: 25%;
     transition: .4s;
     color:rgba(255, 255, 255, 0)
@@ -137,14 +141,14 @@ body {
 .music-controls {
     width: 100%;
     height: 20%;
-    margin-top: 10px;
+
     /* background-color: #3F2B96; */
 }
 
 .music-controls-icon-container {
     display: flex;
     gap: 25px;
-    margin-top: 35px;
+    margin-top: 32px;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -176,7 +180,7 @@ body {
 }
 
 .progress-container {
-    margin-top: 5px;
+    margin-top: 8px;
     display: flex;
     flex-direction: column;
     justify-content: center;
