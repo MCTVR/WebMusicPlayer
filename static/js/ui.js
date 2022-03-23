@@ -8,7 +8,7 @@ const progressBar = document.querySelector("div.progress-bar");
 const musicList = document.querySelector("div.music-list");
 
 function buildTracks() {
-    var files = 10;
+    var files = 5;
 
     for (let id = 1; id < files+1; id++) {
         let trackTemplate = `
@@ -78,7 +78,7 @@ function buildTracks() {
     });
 }
 
-buildTracks();
+//buildTracks();
 
 playBtn.addEventListener("mouseover", () => {
     anime({
