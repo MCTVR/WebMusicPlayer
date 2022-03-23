@@ -5,6 +5,80 @@ const playBtnImg = document.querySelector("div#play-icon").querySelector("img");
 const progressNowSpan = document.querySelector("span#progress-now-span");
 const progressDurationSpan = document.querySelector("span#progress-duration-span");
 const progressBar = document.querySelector("div.progress-bar");
+const musicList = document.querySelector("div.music-list");
+
+function buildTracks() {
+    var files = 10;
+
+    for (let id = 1; id < files+1; id++) {
+        let trackTemplate = `
+        <div class="tracks" id="${id}">
+    
+            <div class="track-thumbnail">
+                <img class="track-thumbnail-img" src="assets/htt.webp" alt="">
+            </div>
+    
+            <div class="track-info">
+    
+                <div class="track-info-container">
+                    <div class="track-title-container">
+                        <div class="track-title">
+                            <span id="" class="track-title-span">ふわふわ時間</span>
+                        </div>
+                        <div class="track-artist">
+                            <span id="" class="track-artist-span">秋山 澪</span>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+    
+        </div>`;
+        console.log(id);
+        musicList.innerHTML += trackTemplate;
+    }
+    const tracks = document.querySelectorAll("div.tracks");
+    tracks.forEach(track => {
+        track.addEventListener("mouseover", () => {
+            anime.remove(track);
+            anime({
+                targets: track,
+                scale: 1.008,
+                duration: 600,
+                elasticity: 400,
+            });
+        });
+        track.addEventListener("mouseleave", () => {
+            anime.remove(track);
+            anime({
+                targets: track,
+                scale: 1,
+                duration: 600,
+                elasticity: 400,
+            });
+        });
+        track.addEventListener("mousedown", () => {
+            anime.remove(track);
+            anime({
+                targets: track,
+                scale: 0.98,
+                duration: 600,
+                elasticity: 400,
+            });
+        });
+        track.addEventListener("mouseup", () => {
+            anime.remove(track);
+            anime({
+                targets: track,
+                scale: 1,
+                duration: 600,
+                elasticity: 400,
+            });
+        });
+    });
+}
+
+buildTracks();
 
 playBtn.addEventListener("mouseover", () => {
     anime({
