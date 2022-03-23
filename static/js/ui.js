@@ -138,7 +138,7 @@ function progressNow(audioElement, times) {
             });
         }
 
-    }, 200);
+    }, 500);
 
 }
 
