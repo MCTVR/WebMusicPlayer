@@ -1,4 +1,5 @@
 # WebMusicPlayer
+Try it here: <a src="https://mctvr.github.io/WebMusicPlayer/">https://mctvr.github.io/WebMusicPlayer/</a>
 
 ## Play your local audio files with your Browser
 
