@@ -5,7 +5,7 @@
 1. Click the **+** button to add a new audio file to the player.
     - select the audio file(s)<sup>1</sup> from your computer
 
-2. Press <img src="static/assets/play-fill.svg" width="20px" /> to start playing the audio file<sup>1</sup>.
+2. Click th play button to start playing the audio file<sup>1</sup>.
     - Space bar shortcut coming soon.
 
 
