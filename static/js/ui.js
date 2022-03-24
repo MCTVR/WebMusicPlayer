@@ -1,43 +1,62 @@
 import anime from "./anime.es.js";
-
+import audio from "./audio.js";
 const playBtn = document.querySelector("div#play-icon");
 const playBtnImg = document.querySelector("div#play-icon").querySelector("img");
+const nextBtn = document.querySelector("div#forward-icon").querySelector("img");
+const prevBtn = document.querySelector("div#backward-icon").querySelector("img");
 const progressNowSpan = document.querySelector("span#progress-now-span");
 const progressDurationSpan = document.querySelector("span#progress-duration-span");
 const progressBar = document.querySelector("div.progress-bar");
 const musicList = document.querySelector("div.music-list");
+const musicArtImg = document.querySelector("img.music-art-img");
+const musicTitle = document.querySelector("div.music-title");
+const musicTitleSpan = document.querySelector("span#music-title-span");
+const musicArtistSpan = document.querySelector("span#music-artist-span");
+const musicResSpan = document.querySelector("span#music-res-span");
+const musicInputFile = document.querySelector("input#music-input-file");
 
-function buildTracks() {
-    var files = 5;
+function buildTrack(file, id, imgSrc, trackTitle, trackArtist) {
+    let trackTemplate = `
+    <div class="tracks" id="track-${id}">
 
-    for (let id = 1; id < files+1; id++) {
-        let trackTemplate = `
-        <div class="tracks" id="${id}">
-    
-            <div class="track-thumbnail">
-                <img class="track-thumbnail-img" src="assets/htt.webp" alt="">
-            </div>
-    
-            <div class="track-info">
-    
-                <div class="track-info-container">
-                    <div class="track-title-container">
-                        <div class="track-title">
-                            <span id="" class="track-title-span">ふわふわ時間</span>
-                        </div>
-                        <div class="track-artist">
-                            <span id="" class="track-artist-span">秋山 澪</span>
-                        </div>
+        <div class="track-thumbnail">
+            <img id="track-thumbnail-img-${id}" class="track-thumbnail-img" src="${imgSrc}" alt="">
+        </div>
+
+        <div class="track-info">
+
+            <div class="track-info-container">
+                <div class="track-title-container">
+                    <div class="track-title">
+                        <span id="track-title-span-${id}" class="track-title-span">${trackTitle}</span>
+                    </div>
+                    <div class="track-artist">
+                        <span id="track-artist-span-${id}" class="track-artist-span">${trackArtist}</span>
                     </div>
                 </div>
-    
             </div>
-    
-        </div>`;
-        console.log(id);
-        musicList.innerHTML += trackTemplate;
-    }
-    const tracks = document.querySelectorAll("div.tracks");
+
+        </div>
+
+    </div>`;
+    musicList.innerHTML += trackTemplate;
+    let musicTitles = document.querySelectorAll("div.track-title");
+    let tracks = document.querySelectorAll("div.tracks");
+    musicTitles.forEach((title) => {
+        title.addEventListener("mouseover", () => {
+            title.scrollTo({
+                left: title.scrollWidth,
+                behavior: "smooth"
+            });
+        });
+        title.addEventListener("mouseout", () => {
+            title.scrollTo({
+                left: 0,
+                behavior: "smooth"
+            });
+        });
+    });
+
     tracks.forEach(track => {
         track.addEventListener("mouseover", () => {
             anime.remove(track);
@@ -73,12 +92,32 @@ function buildTracks() {
                 scale: 1,
                 duration: 600,
                 elasticity: 400,
+                after: () => {
+                    tracks.forEach(track => {track.classList.remove("active-track");});
+                    track.classList.add("active-track");
+                    let trackID = track.id.split("-")[1];
+                    if (trackID > 6) {
+                        musicList.scrollTo({
+                            top: musicList.scrollHeight,
+                            behavior: "smooth"
+                        });
+                    } else if (trackID < 6) {
+                        musicList.scrollTo({
+                            top: 0,
+                            behavior: "smooth"
+                        });
+                    }
+                    musicTitle.id = `title-${trackID}`;
+                    musicArtImg.src = track.querySelector("img").src;
+                    musicTitleSpan.textContent = track.querySelector("span.track-title-span").textContent;
+                    musicArtistSpan.textContent = track.querySelector("span.track-artist-span").textContent;
+                    musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
+                    audio(musicInputFile.files[trackID]);
+                }
             });
         });
     });
 }
-
-//buildTracks();
 
 playBtn.addEventListener("mouseover", () => {
     anime({
@@ -135,11 +174,9 @@ function playBtnControl(audioElement) {
         playBtnImg.addEventListener("click", () => {
             times += 1;
             if (times % 2 !== 0) {
-                console.log(times);
                 times = 1;
                 playAudio(audioElement);
             } else if (times % 2 === 0) {
-                console.log(times);
                 times = 0;
                 pauseAudio(audioElement);
             }
@@ -149,10 +186,48 @@ function playBtnControl(audioElement) {
 
 }
 
+function triggerMouseEvent (node, eventType) {
+    var clickEvent = new MouseEvent(eventType);
+    try {
+        node.dispatchEvent(clickEvent);
+    } catch (e) {}
+}
+
+nextBtn.addEventListener("click", () => {
+    let musicTitleID = document.querySelector("div.music-title").id.split("-")[1];
+    try {
+        let nextMusicTitleID = parseInt(musicTitleID) + 1;
+        let nextTrackElement = document.querySelector(`div#track-${nextMusicTitleID}`);
+        TrackControl(nextTrackElement);
+    } catch (error) {
+        let nextMusicTitleID = 0;
+        let nextTrackElement = document.querySelector(`div#track-${nextMusicTitleID}`);
+        TrackControl(nextTrackElement);
+    }
+});
+
+prevBtn.addEventListener("click", () => {
+    let musicTitleID = document.querySelector("div.music-title").id.split("-")[1];
+    try {
+        let prevMusicTitleID = parseInt(musicTitleID) - 1;
+        let prevTrackElement = document.querySelector(`div#track-${prevMusicTitleID}`);
+        TrackControl(prevTrackElement);
+    } catch (error) {
+        let prevMusicTitleID = document.querySelectorAll("div.tracks").length - 1;
+        let prevTrackElement = document.querySelector(`div#track-${prevMusicTitleID}`);
+        TrackControl(prevTrackElement);
+    }
+});
+
+
+function TrackControl(TrackElement) {
+    triggerMouseEvent(TrackElement, "mouseup");
+}
+
 function progressNow(audioElement, times) {
+    
     if (times > 1) {
         try {
-            console.log(times);
             clearInterval(progressInterval);
             clearInterval(progressBarInterval);
         } catch (error) {
@@ -216,4 +291,4 @@ function progressNow(audioElement, times) {
 
 }
 
-export { progressNow };
+export { progressNow, buildTrack };

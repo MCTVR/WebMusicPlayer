@@ -7,21 +7,27 @@ function audio(file) {
     
     if (times > 1) {
         times = 0;
-        console.log(audioElement.src);
         audioElement.pause();
+        URL.revokeObjectURL(audioElement.src);
         clearInterval(progressInterval);
         clearInterval(progressBarInterval);
-        URL.revokeObjectURL(audioElement.src);
         audioElement.src = "";
     }
     
     (async () => {
         times += 1;
-        let blob = new Blob([ await file.arrayBuffer()], { type: file.type });
-        audioElement.crossOrigin = "anonymous";
-        audioElement.src = URL.createObjectURL(blob);
-        blob = null;
-        progressNow(audioElement, times);
+        URL.revokeObjectURL(audioElement.src);
+        try {
+
+            let blob = new Blob([ await file.arrayBuffer()], { type: file.type });
+            audioElement.crossOrigin = "anonymous";
+            audioElement.src = URL.createObjectURL(blob);
+            progressNow(audioElement, times);
+            
+        } catch (error) {
+            console.log(error);
+        }
+
     })();
 }
 
