@@ -7,12 +7,6 @@
     <meta name="theme-color" content="#fdfdfd">
     <meta name="description" content="Play local audio files with your browser!">
     <link rel="manifest" href="manifest.json" />
-    <link rel="icon" href="assets/icon@32.png" />
-    <link rel="apple-touch-icon" href="assets/icon@192.png" />
-    <script type="module" src="js/ui.js"></script>
-    <script defer type="module" src="js/fileHandler.js"></script>
-    <link rel="stylesheet" href="css/index.css">
-    <script src="js/jsmediatags.min.js"></script>
     <script>
         if ("serviceWorker" in navigator) {
             navigator.serviceWorker.register("sw.js")
@@ -20,6 +14,12 @@
             .catch(err => console.log("Service Worker Failed to Register", err));   
         }
     </script>
+    <link rel="icon" href="assets/icon@32.png" />
+    <link rel="apple-touch-icon" href="assets/icon@192.png" />
+    <script type="module" src="js/ui.js"></script>
+    <script defer type="module" src="js/fileHandler.js"></script>
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/jsmediatags.min.js"></script>
 </head>
 <body>
     <div class="bg">

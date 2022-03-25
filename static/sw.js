@@ -2,7 +2,6 @@ const WebMusicPlayer = "WebMusicPlayer";
 
 const assets = [
     "./",
-    "./index.html",
     "./css/index.css",
     "./manifest.json",
     "./js/fileHandler.js",
