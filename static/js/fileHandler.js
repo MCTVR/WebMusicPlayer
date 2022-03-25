@@ -23,7 +23,7 @@ function buildTrackWithInfo(files) {
                 try {
                     const { data, format } = tag.tags.picture;
                     let base64String = "";
-                    for (var i = 0; i < data.length; i++) {
+                    for (let i = 0; i < data.length; i++) {
                         base64String += String.fromCharCode(data[i]);
                     }
                     let imgSrc = `data:${data.format};base64,${window.btoa(base64String)}`;
@@ -60,7 +60,7 @@ function showMusicInfo(file) {
             try {
                 const { data, format } = tag.tags.picture;
                 let base64String = "";
-                for (var i = 0; i < data.length; i++) {
+                for (let i = 0; i < data.length; i++) {
                     base64String += String.fromCharCode(data[i]);
                 }
                 musicArtImg.src = `data:${data.format};base64,${window.btoa(base64String)}`;

@@ -194,7 +194,7 @@ function playBtnControl(audioElement, play=false) {
 }
 
 function triggerMouseEvent (node, eventType) {
-    var clickEvent = new MouseEvent(eventType);
+    let clickEvent = new MouseEvent(eventType);
     try {
         node.dispatchEvent(clickEvent);
     } catch (e) {}
@@ -202,28 +202,33 @@ function triggerMouseEvent (node, eventType) {
 
 nextBtn.addEventListener("click", () => {
     let musicTitleID = document.querySelector("div.music-title").id.split("-")[1];
-    try {
+
+    if (musicTitleID < musicInputFile.files.length - 1) {
         let nextMusicTitleID = parseInt(musicTitleID) + 1;
         let nextTrackElement = document.querySelector(`div#track-${nextMusicTitleID}`);
         trackControl(nextTrackElement);
-    } catch (error) {
+    } else {
         let nextMusicTitleID = 0;
         let nextTrackElement = document.querySelector(`div#track-${nextMusicTitleID}`);
         trackControl(nextTrackElement);
     }
+
 });
 
 prevBtn.addEventListener("click", () => {
     let musicTitleID = document.querySelector("div.music-title").id.split("-")[1];
-    try {
+    
+    if (musicTitleID > 0) {
+        let musicTitleID = document.querySelector("div.music-title").id.split("-")[1];
         let prevMusicTitleID = parseInt(musicTitleID) - 1;
         let prevTrackElement = document.querySelector(`div#track-${prevMusicTitleID}`);
         trackControl(prevTrackElement);
-    } catch (error) {
+    } else {
         let prevMusicTitleID = document.querySelectorAll("div.tracks").length - 1;
         let prevTrackElement = document.querySelector(`div#track-${prevMusicTitleID}`);
         trackControl(prevTrackElement);
     }
+
 });
 
 
@@ -248,8 +253,8 @@ function progressNow(audioElement, times, isList=false) {
     globalThis.progressInterval = setInterval(() => {
         
         let timeNow = audioElement.currentTime;
-        var minutes = Math.floor(timeNow / 60);
-        var seconds = Math.floor(timeNow - minutes * 60);
+        let minutes = Math.floor(timeNow / 60);
+        let seconds = Math.floor(timeNow - minutes * 60);
 
         if (seconds <= 9) { seconds = `0${seconds}`; } else { seconds = seconds; }
 
@@ -278,9 +283,9 @@ function progressNow(audioElement, times, isList=false) {
 
         let timeNow = audioElement.currentTime;
 
-        var progressPercentage = (timeNow / duration) * 100;
+        let progressPercentage = (timeNow / duration) * 100;
 
-        var progressPercentageInStr = progressPercentage.toString() + "%";
+        let progressPercentageInStr = progressPercentage.toString() + "%";
 
         progressBar.style.width = progressPercentageInStr;
 

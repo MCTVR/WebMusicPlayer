@@ -1,7 +1,7 @@
 import { progressNow, playBtnControl } from "./ui.js";
 
-var audioElement = new Audio();
-var times = 0;
+let audioElement = new Audio();
+let times = 0;
 
 function audio(file, trackCtl=false) {
     
