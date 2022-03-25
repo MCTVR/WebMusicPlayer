@@ -20,11 +20,20 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
 });
 
+app.get("/js", (req, res) => {
+    reqURL = req.url.replace("/js", "");
+    res.sendFile(__dirname + reqURL);
+});
+
+app.get("/index.html", (req, res) => {
+    res.sendFile(__dirname + "/index.html");
+});
+
 https.globalAgent.maxSockets = Infinity;
 
 const options = {
-    key: fs.readFileSync("./certs/server.key"),
-    cert: fs.readFileSync("./certs/server.cert"),
+    key: fs.readFileSync("./certs/localhost.key"),
+    cert: fs.readFileSync("./certs/localhost.crt"),
 };
 
 https.createServer(options, app)

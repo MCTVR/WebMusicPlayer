@@ -4,13 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Music Player</title>
-    <link rel="stylesheet" href="css/index.css">
+    <meta name="theme-color" content="#fdfdfd">
+    <meta name="description" content="Play local audio files with your browser!">
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="assets/icon@32.png" />
+    <link rel="apple-touch-icon" href="assets/icon@192.png" />
     <script type="module" src="js/ui.js"></script>
     <script defer type="module" src="js/fileHandler.js"></script>
+    <link rel="stylesheet" href="css/index.css">
     <script src="js/jsmediatags.min.js"></script>
     <script>
         if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("js/sw.js");
+            navigator.serviceWorker.register("sw.js")
+            .then(res => console.log("Service Worker Registered"))
+            .catch(err => console.log("Service Worker Failed to Register", err));   
         }
     </script>
 </head>
