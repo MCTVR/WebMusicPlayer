@@ -49,7 +49,7 @@ function buildTrack(file, id, imgSrc, trackTitle, trackArtist) {
                 behavior: "smooth"
             });
         });
-        title.addEventListener("mouseout", () => {
+        title.addEventListener("mouseleave", () => {
             title.scrollTo({
                 left: 0,
                 behavior: "smooth"
@@ -112,7 +112,7 @@ function buildTrack(file, id, imgSrc, trackTitle, trackArtist) {
                     musicTitleSpan.textContent = track.querySelector("span.track-title-span").textContent;
                     musicArtistSpan.textContent = track.querySelector("span.track-artist-span").textContent;
                     musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
-                    audio(musicInputFile.files[trackID]);
+                    audio(musicInputFile.files[trackID], true);
                 }
             });
         });
@@ -165,20 +165,27 @@ function pauseAudio(audioElement) {
     audioElement.pause();
 }
 
-function playBtnControl(audioElement) {
+function playBtnControl(audioElement, play=false) {
 
     audioElement.addEventListener("loadeddata", () => {
         let times = 0;
-        playBtnImg.src = "assets/play-fill.svg";
+
+        play ? playAudio(audioElement) : pauseAudio(audioElement);
         
         playBtnImg.addEventListener("click", () => {
-            times += 1;
-            if (times % 2 !== 0) {
-                times = 1;
-                playAudio(audioElement);
-            } else if (times % 2 === 0) {
+            if (play) {
                 times = 0;
                 pauseAudio(audioElement);
+                play = false;
+            } else {
+                times += 1;
+                if (times % 2 !== 0) {
+                    times = 1;
+                    playAudio(audioElement);
+                } else if (times % 2 === 0) {
+                    times = 0;
+                    pauseAudio(audioElement);
+                }
             }
         });
 
@@ -198,11 +205,11 @@ nextBtn.addEventListener("click", () => {
     try {
         let nextMusicTitleID = parseInt(musicTitleID) + 1;
         let nextTrackElement = document.querySelector(`div#track-${nextMusicTitleID}`);
-        TrackControl(nextTrackElement);
+        trackControl(nextTrackElement);
     } catch (error) {
         let nextMusicTitleID = 0;
         let nextTrackElement = document.querySelector(`div#track-${nextMusicTitleID}`);
-        TrackControl(nextTrackElement);
+        trackControl(nextTrackElement);
     }
 });
 
@@ -211,20 +218,20 @@ prevBtn.addEventListener("click", () => {
     try {
         let prevMusicTitleID = parseInt(musicTitleID) - 1;
         let prevTrackElement = document.querySelector(`div#track-${prevMusicTitleID}`);
-        TrackControl(prevTrackElement);
+        trackControl(prevTrackElement);
     } catch (error) {
         let prevMusicTitleID = document.querySelectorAll("div.tracks").length - 1;
         let prevTrackElement = document.querySelector(`div#track-${prevMusicTitleID}`);
-        TrackControl(prevTrackElement);
+        trackControl(prevTrackElement);
     }
 });
 
 
-function TrackControl(TrackElement) {
-    triggerMouseEvent(TrackElement, "mouseup");
+function trackControl(trackElement) {
+    triggerMouseEvent(trackElement, "mouseup");
 }
 
-function progressNow(audioElement, times) {
+function progressNow(audioElement, times, isList=false) {
     
     if (times > 1) {
         try {
@@ -278,17 +285,21 @@ function progressNow(audioElement, times) {
         progressBar.style.width = progressPercentageInStr;
 
         if (timeNow >= audioElement.duration) {
-            playBtnImg.src = "assets/play-fill.svg";
-            playBtn.addEventListener("click", () => {
-                clearInterval(progressInterval);
-                clearInterval(progressBarInterval);
-                playAudio(audioElement);
-                progressNow(audioElement);
-            });
+            if (isList) {
+                nextBtn.click();
+            } else {
+                playBtnImg.src = "assets/play-fill.svg";
+                playBtn.addEventListener("click", () => {
+                    clearInterval(progressInterval);
+                    clearInterval(progressBarInterval);
+                    playAudio(audioElement);
+                    progressNow(audioElement);
+                });
+            }
         }
 
     }, 500);
 
 }
 
-export { progressNow, buildTrack };
+export { progressNow, buildTrack, playAudio, pauseAudio, playBtnControl };
