@@ -19,6 +19,7 @@ const assets = [
     "./assets/icon@32.png",
     "./assets/icon@64.png",
     "./assets/icon@128.png",
+    "./assets/icon@192.png",
     "./assets/icon@196.png",
     "./assets/icon@256.png",
     "./assets/icon@512.png",
