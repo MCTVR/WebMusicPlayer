@@ -1,22 +1,5 @@
 import { progressNow, playBtnControl } from "./ui.mobile.js";
 
-let isUnlocked = false;
-
-window.addEventListener("touchstart", () => {
-    let audioCtx = new AudioContext();
-    let buffer = audioCtx.createBuffer(1, 1, 22050);
-    let source = audioCtx.createBufferSource();
-    source.buffer = buffer;
-    source.connect(audioCtx.destination);
-    source.start(0);
-    setTimeout(() => {
-        if((source.playbackState === source.PLAYING_STATE || source.playbackState === source.FINISHED_STATE)) {
-            isUnlocked = true;
-            console.log("Audio is unlocked");
-        }
-    }, 0);
-});
-
 let audioElement = new Audio;
 let times = 0;
 
