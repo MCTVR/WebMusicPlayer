@@ -84,7 +84,7 @@ function playBtnControl(audioElement, play=false) {
 
         play ? playAudio(audioElement) : pauseAudio(audioElement);
         
-        playBtnImg.addEventListener("click", () => {
+        playBtn.addEventListener("click", () => {
             if (play) {
                 times = 0;
                 pauseAudio(audioElement);
