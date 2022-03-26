@@ -23,11 +23,9 @@ body {
 }
 
 .player-container {
-    display: flex;
-    align-items: center;
-    width: 1080px;
-    height: 840px;
-    border-radius: 5px;
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
     z-index: 1;
     box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
     background-color: rgba(255, 255, 255, .1);
@@ -35,16 +33,11 @@ body {
     transition: .4s;
 }
 
-.player-container:hover {
-    box-shadow: 0 0 1.5rem 0 rgba(0, 0, 0, .2);
-    background-color: rgba(255, 255, 255, .12);
-}
-
 .music-art {
     cursor: pointer;
-    margin-top: 21%;
-    width: 400px;
-    height: 400px;
+    margin-top: 22%;
+    width: 80vw;
+    height: 80vw;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, .1);
     backdrop-filter: blur(5px);
@@ -65,8 +58,8 @@ body {
 .player-area-container {
     display: flex;
     justify-content: center;
-    height: 90%;
-    width: 60%;
+    height: auto;
+    width: 100%;
 }
 
 .player-area {
@@ -75,12 +68,11 @@ body {
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
-    width: 60%;
+    width: 80vw;
 }
 
 .sidebar {
-    width: 35%;
-    height: 80%;
+    width: 100vw;
     color: #fff;
 }
 
@@ -125,11 +117,7 @@ body {
     text-align: center;
     transition: .4s;
     font-weight: 300;
-    color:rgba(255, 255, 255, 0);
-}
-
-.music-res:hover {
-    color: rgba(255, 255, 255, .6);
+    color: rgba(255, 255, 255, .5);
 }
 
 .music-controls {
@@ -139,8 +127,8 @@ body {
 
 .music-controls-icon-container {
     display: flex;
-    gap: 25px;
-    margin-top: 24px;
+    gap: 18px;
+    margin-top: 18px;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -151,13 +139,13 @@ body {
 .music-controls-icon {
     filter: invert(95%) sepia(18%) saturate(0%) hue-rotate(53deg) brightness(103%) contrast(101%) opacity(.5);
     cursor: pointer;
-    width: 40px;
-    height: 40px;
+    width: 46px;
+    height: 46px;
 }
 
 #play-icon {
-    width: 64px;
-    height: 64px;
+    width: 74px;
+    height: 74px;
 }
 
 .music-controls-icon img {
@@ -191,14 +179,14 @@ body {
 .progress-indicators-container {
     display: flex;
     width: 96%;
-    height: 13px;
-    font-size: 13px;
+    height: 18px;
+    font-size: 18px;
     user-select: none;
     -webkit-user-select: none;
 }
 
 .progress-now {
-    width: 10%;
+    width: 13%;
     height: 100%;
     text-align: left;
     color: rgba(255, 255, 255, .7);
@@ -207,12 +195,12 @@ body {
 .seperator-div {
     display: flex;
     justify-content: center;
-    width: 80%;
+    width: 74%;
     height: 100%;
 }
 
 .progress-duration {
-    width: 10%;
+    width: 13%;
     color: rgba(255, 255, 255, .7);
     text-align: right;
     height: 100%;
@@ -233,16 +221,18 @@ body {
 }
 
 .music-list-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 0;
-    width: 100%;
-    height: 90%;
-    /* background-color: #3F2B96; */
+    width: 100vw;
+    height: auto;
 }
 
 .music-list {
-    width: 100%;
+    width: 80%;
     height: 100%;
-    padding: 10px;
     overflow-y: scroll;
     overflow-x: hidden;
     user-select: none;
@@ -252,7 +242,7 @@ body {
 .tracks {
     display: flex;
     cursor: pointer;
-    width: calc(100% - 20px);
+    width: 100%;
     border-radius: 5px;
     background-color: rgba(240, 240, 240, .2);
     backdrop-filter: blur(5px);

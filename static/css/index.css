@@ -125,7 +125,7 @@ body {
     text-align: center;
     transition: .4s;
     font-weight: 300;
-    color:rgba(255, 255, 255, 0)
+    color:rgba(255, 255, 255, 0);
 }
 
 .music-res:hover {
