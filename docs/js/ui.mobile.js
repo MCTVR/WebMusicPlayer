@@ -84,7 +84,7 @@ function playBtnControl(audioElement, play=false) {
 
         play ? playAudio(audioElement) : pauseAudio(audioElement);
         
-        playBtn.addEventListener("touchstart", () => {
+        playBtnImg.addEventListener("click", () => {
             if (play) {
                 times = 0;
                 pauseAudio(audioElement);
