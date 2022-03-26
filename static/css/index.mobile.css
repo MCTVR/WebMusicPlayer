@@ -146,11 +146,13 @@ body {
 #play-icon {
     width: 74px;
     height: 74px;
+    cursor: pointer;
 }
 
 .music-controls-icon img {
     width: 100%;
     height: 100%;
+    cursor: pointer:
     filter: drop-shadow( 0 0 1px rgba(255, 255, 255, .3));
     transition: .4s;
 }
