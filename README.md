@@ -20,7 +20,7 @@ Try it here: <a src="https://mctvr.github.io/WebMusicPlayer/">https://mctvr.gith
 
 <sup>1</sup> You can select multiple audio files at once.<br>
 <sup>2</sup> .m4a with ALAC codec works on macOS Safari only.<br>
-<sup>3</sup> Common audio files are playable, check <a src="https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Cross-browser_audio_basics#audio_codec_support">Here</a> for more info.<br>
+<sup>3</sup> Common audio files are playable, check <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Cross-browser_audio_basics#audio_codec_support">Here</a> for more info.<br>
 
 
 ## Credits
