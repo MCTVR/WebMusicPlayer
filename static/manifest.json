@@ -4,8 +4,8 @@
     "start_url": "index.html",
     "display": "standalone",
     "orientation": "portrait-primary",
-    "background_color": "#20FFFFFF",
-    "theme_color": "#20FFFFFF",
+    "background_color": "#10FFFFFF",
+    "theme_color": "#10FFFFFF",
     "id": "/index.html",
     "icons": [
         {
@@ -26,6 +26,10 @@
         },
         {
             "src": "assets/icon@196.png",
+            "type": "image/png", "sizes": "196x196"
+        },
+        {
+            "src": "assets/icon@196Mask.png",
             "type": "image/png", "sizes": "196x196",
             "purpose": "any maskable"
         },

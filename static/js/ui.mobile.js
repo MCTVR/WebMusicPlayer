@@ -1,4 +1,3 @@
-import anime from "./anime.es.js";
 import audio from "./audio.mobile.js";
 const playBtn = document.querySelector("div#play-icon");
 const playBtnImg = document.querySelector("div#play-icon").querySelector("img");
@@ -40,29 +39,19 @@ function buildTrack(file, id, imgSrc, trackTitle, trackArtist) {
 
     </div>`;
     musicList.innerHTML += trackTemplate;
-    let musicTitles = document.querySelectorAll("div.track-title");
     let tracks = document.querySelectorAll("div.tracks");
 
     tracks.forEach(track => {
         track.addEventListener("click", () => {
-            anime.remove(track);
-            anime({
-                targets: track,
-                scale: 1,
-                duration: 600,
-                elasticity: 400,
-                after: () => {
-                    tracks.forEach(track => {track.classList.remove("active-track");});
-                    track.classList.add("active-track");
-                    let trackID = track.id.split("-")[1];
-                    musicTitle.id = `title-${trackID}`;
-                    musicArtImg.src = track.querySelector("img").src;
-                    musicTitleSpan.textContent = track.querySelector("span.track-title-span").textContent;
-                    musicArtistSpan.textContent = track.querySelector("span.track-artist-span").textContent;
-                    musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
-                    audio(musicInputFile.files[trackID], true);
-                }
-            });
+            tracks.forEach(track => {track.classList.remove("active-track");});
+            track.classList.add("active-track");
+            let trackID = track.id.split("-")[1];
+            musicTitle.id = `title-${trackID}`;
+            musicArtImg.src = track.querySelector("img").src;
+            musicTitleSpan.textContent = track.querySelector("span.track-title-span").textContent;
+            musicArtistSpan.textContent = track.querySelector("span.track-artist-span").textContent;
+            musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
+            audio(musicInputFile.files[trackID], true);
         });
     });
 }
@@ -145,7 +134,7 @@ prevBtn.addEventListener("click", () => {
 
 
 function trackControl(trackElement) {
-    triggerMouseEvent(trackElement, "mouseup");
+    triggerMouseEvent(trackElement, "click");
 }
 
 function progressNow(audioElement, times, isList=false) {

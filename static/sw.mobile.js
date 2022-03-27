@@ -1,4 +1,4 @@
-const WebMusicPlayer = "WebMusicPlayer";
+const WebMusicPlayer = "WebMusicPlayerv1";
 
 const assets = [
     "./",
@@ -9,7 +9,6 @@ const assets = [
     "./js/audio.mobile.js",
     "./js/ui.mobile.js",
     "./js/jsmediatags.min.js",
-    "./js/anime.es.js",
     "./assets/play-fill.svg",
     "./assets/pause-fill.svg",
     "./assets/skip-forward-fill.svg",
@@ -21,13 +20,15 @@ const assets = [
     "./assets/icon@128.png",
     "./assets/icon@192.png",
     "./assets/icon@196.png",
+    "./assets/icon@196Mask.png",
     "./assets/icon@256.png",
     "./assets/icon@512.png",
 ]
 
 self.addEventListener("install", (event) => {
     event.waitUntil(
-        caches.open(WebMusicPlayer).then((cache) => {
+        caches.open(WebMusicPlayer)
+        .then((cache) => {
             return cache.addAll(assets);
         })
     );
@@ -38,5 +39,5 @@ self.addEventListener("fetch", event => {
       caches.match(event.request).then(res => {
         return res || fetch(event.request)
       })
-    )
-  })
+    );
+});

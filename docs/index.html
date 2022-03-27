@@ -34,8 +34,8 @@
         }
         else if (window.mobileCheck() === false) {
             let ui = document.createElement("script");
-            uiMob.type = "module";
-            uiMob.src = "js/ui.js";
+            ui.type = "module";
+            ui.src = "js/ui.js";
             document.head.appendChild(ui);
             let fileHandler = document.createElement("script");
             fileHandler.type = "module";

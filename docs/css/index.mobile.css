@@ -16,7 +16,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: auto;
+    height: 100%;
     width: 100vw;
     background-attachment: fixed;
     background: linear-gradient(25deg, #3F2B96 0%, #A8C0FF 100%);
@@ -24,7 +24,7 @@ body {
 
 .player-container {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     overflow-y: scroll;
     z-index: 1;
     box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
@@ -227,7 +227,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 0;
+    margin-bottom: 10px;
     width: 100vw;
     height: auto;
 }

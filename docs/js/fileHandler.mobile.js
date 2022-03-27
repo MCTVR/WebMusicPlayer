@@ -84,6 +84,7 @@ function showMusicInfo(file) {
 function loadFile() {
         
     musicArt.addEventListener("click", () => {
+        musicInputFile.accept = "*";
         musicInputFile.click();
     });
 
@@ -95,7 +96,7 @@ function loadFile() {
             buildTrackWithInfo(files);
 
         } else if (files.length === 1) {
-            const file = files[0];
+            let file = files[0];
 
             if (file.type.indexOf("audio/x-m4a") != -1) {
                 file = new File([file], file.name.slice(0,file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
