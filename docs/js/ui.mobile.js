@@ -70,6 +70,9 @@ function playBtnControl(audioElement, play=false) {
 
     audioElement.addEventListener("loadeddata", () => {
         let times = 0;
+        if (play === true) {
+            playAudio(audioElement);
+        }
 
         play ? playAudio(audioElement) : pauseAudio(audioElement);
         
@@ -148,8 +151,11 @@ function progressNow(audioElement, times, isList=false) {
         }
 
     }
-
-    playBtnControl(audioElement);
+    if (isList === false) {
+        playBtnControl(audioElement);
+    } else if (isList === true) {
+        playBtnControl(audioElement, true);
+    }
 
     globalThis.progressInterval = setInterval(() => {
         

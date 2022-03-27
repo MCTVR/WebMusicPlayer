@@ -1,6 +1,6 @@
 import { progressNow, playBtnControl } from "./ui.mobile.js";
 
-let audioElement = new Audio;
+let audioElement = new Audio();
 let times = 0;
 
 function audio(file, trackCtl=false) {
@@ -25,10 +25,9 @@ function audio(file, trackCtl=false) {
             audioElement.src = URL.createObjectURL(blob);
             blob = null;
             audioElement.autoplay = true;
-            audioElement.pause();
-            if (trackCtl) {
+            audioElement.load();
+            if (trackCtl === true) {
                 progressNow(audioElement, times, true);
-                playBtnControl(audioElement, true);
             } else {
                 progressNow(audioElement, times);
             }
