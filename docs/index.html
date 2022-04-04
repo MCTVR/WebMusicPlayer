@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#00FFFF00">
     <meta name="description" content="Play local audio files with your browser!">
     <link rel="manifest" href="manifest.json" />
-    <link rel="icon" href="assets/icon@32.png" />
-    <link rel="apple-touch-icon" href="assets/icon@196Mask.png" />
+    <link rel="icon" href="assets/logo/icon@32.png" />
+    <link rel="apple-touch-icon" href="assets/logo/icon@196Mask.png" />
     <script>
         window.mobileCheck = function() {
             let check = false;
@@ -63,7 +63,7 @@
                 <div class="player-area">
                     <div class="music-art">
                         <input id="music-input-file" type="file" accept="audio/*" hidden multiple>
-                        <img class="music-art-img" src="assets/plus.webp" alt="">
+                        <img class="music-art-img" src="assets/icons/plus.webp" alt="">
                     </div>
 
                     <div class="music-info">
@@ -95,14 +95,23 @@
                             </div>
                         </div>
                         <div class="music-controls-icon-container">
+                            <div class="music-controls-divs" id="autoplay-div">
+                                <img src="assets/icons/autoplay.svg" class="music-controls-divs-imgs" />
+                            </div>
                             <div class="music-controls-icon" id="backward-icon">
-                                <img src="assets/skip-backward-fill.svg" draggable="false" alt="Skip/Backward">
+                                <img src="assets/icons/skip-backward-fill.svg" draggable="false" alt="Skip/Backward">
                             </div>
                             <div class="music-controls-icon" id="play-icon">
-                                <img src="assets/play-fill.svg" draggable="false" alt="Play" />
+                                <img src="assets/icons/play-fill.svg" draggable="false" alt="Play" />
                             </div>
                             <div class="music-controls-icon" id="forward-icon">
-                                <img src="assets/skip-forward-fill.svg" draggable="false" alt="Skip/Forward">
+                                <img src="assets/icons/skip-forward-fill.svg" draggable="false" alt="Skip/Forward">
+                            </div>
+                            <div class="music-controls-divs" id="loop-div">
+                                <img src="assets/icons/infinite.svg" class="music-controls-divs-imgs" />
+                            </div>
+                            <div class="music-controls-divs" id="shuffle-div">
+                                <img src="assets/icons/shuffle.svg" class="music-controls-divs-imgs" />
                             </div>
                         </div>
                     </div>
@@ -112,6 +121,9 @@
 
             <div class="sidebar">
                 <div class="sidebar-header">
+
+
+
                 </div>
                 <div class="music-list-container">
                     <div class="music-list">
