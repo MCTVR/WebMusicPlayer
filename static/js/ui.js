@@ -4,7 +4,7 @@ const playBtn = document.querySelector("div#play-icon");
 const playBtnImg = document.querySelector("div#play-icon").querySelector("img");
 const nextBtn = document.querySelector("div#forward-icon").querySelector("img");
 const prevBtn = document.querySelector("div#backward-icon").querySelector("img");
-const sidebarHeaderDivs = document.querySelectorAll("div.sidebar-header-divs");
+const musicControlsDivs = document.querySelectorAll("div.music-controls-divs");
 const autoPlayDiv = document.querySelector("div#autoplay-div");
 const loopDiv = document.querySelector("div#loop-div");
 const shuffleDiv = document.querySelector("div#shuffle-div");
@@ -123,7 +123,7 @@ function buildTrack(file, id, imgSrc, trackTitle, trackArtist) {
     });
 }
 
-sidebarHeaderDivs.forEach(div => {
+musicControlsDivs.forEach(div => {
     div.addEventListener("mouseover", () => {
         anime.remove(div);
         anime({
@@ -161,7 +161,7 @@ sidebarHeaderDivs.forEach(div => {
         });
     });
     div.addEventListener("click", () => {
-        div.classList.toggle("active-sidebar-header-div");
+        div.classList.toggle("active-div");
     });
 });
 
@@ -284,9 +284,16 @@ function trackControl(trackElement) {
 
 function progressNow(audioElement, times, isList=false) {
     if (isList) {
-        autoPlayDiv.classList.add("active-sidebar-header-div");
-        loopDiv.classList.add("active-sidebar-header-div");
+        autoPlayDiv.classList.add("active-div");
+        autoPlayDiv.style.display = "flex";
+        loopDiv.style.display = "none";
+        shuffleDiv.style.display = "flex";
+    } else {
+        loopDiv.style.display = "flex";
+        autoPlayDiv.style.display = "flex";
+        autoPlayDiv.style.opacity = "0";
     }
+
     if (times > 1) {
         try {
             clearInterval(progressInterval);
@@ -340,15 +347,29 @@ function progressNow(audioElement, times, isList=false) {
 
         if (timeNow >= audioElement.duration) {
             const autoPlayDivClass = autoPlayDiv.classList;
-            if (isList && autoPlayDivClass.contains("active-sidebar-header-div")) {
-                nextBtn.click();
+            const shuffleDivClass = shuffleDiv.classList;
+            const loopDivClass = loopDiv.classList;
+            if (isList && autoPlayDivClass.contains("active-div")) {
+                if (shuffleDivClass.contains("active-div")) {
+                    let randomMusicTitleID = Math.floor(Math.random() * musicInputFile.files.length);
+                    let randomTrackElement = document.querySelector(`div#track-${randomMusicTitleID}`);
+                    trackControl(randomTrackElement);
+                } else {
+                    nextBtn.click();
+                }
+            } else if (!isList && loopDivClass.contains("active-div")) {
+                audioElement.currentTime = 0;
+                clearInterval(progressInterval);
+                clearInterval(progressBarInterval);
+                playAudio(audioElement);
+                progressNow(audioElement);
             } else {
                 playBtnImg.src = "assets/icons/play-fill.svg";
                 clearInterval(progressInterval);
                 clearInterval(progressBarInterval);
                 playBtn.addEventListener("click", () => {
                     playAudio(audioElement);
-                    progressNow(audioElement);
+                    progressNow(audioElement, isList=true);
                 });
             }
         }

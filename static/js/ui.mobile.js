@@ -3,6 +3,10 @@ const playBtn = document.querySelector("div#play-icon");
 const playBtnImg = document.querySelector("div#play-icon").querySelector("img");
 const nextBtn = document.querySelector("div#forward-icon").querySelector("img");
 const prevBtn = document.querySelector("div#backward-icon").querySelector("img");
+const musicControlsDivs = document.querySelectorAll("div.music-controls-divs");
+const autoPlayDiv = document.querySelector("div#autoplay-div");
+const loopDiv = document.querySelector("div#loop-div");
+const shuffleDiv = document.querySelector("div#shuffle-div");
 const progressNowSpan = document.querySelector("span#progress-now-span");
 const progressDurationSpan = document.querySelector("span#progress-duration-span");
 const progressBar = document.querySelector("div.progress-bar");
@@ -56,13 +60,19 @@ function buildTrack(file, id, imgSrc, trackTitle, trackArtist) {
     });
 }
 
+musicControlsDivs.forEach(div => {
+    div.addEventListener("click", () => {
+        div.classList.toggle("active-div");
+    });
+});
+
 function playAudio(audioElement) {
-    playBtnImg.src = "assets/pause-fill.svg";
+    playBtnImg.src = "assets/icons/pause-fill.svg";
     audioElement.play();
 }
 
 function pauseAudio(audioElement) {
-    playBtnImg.src = "assets/play-fill.svg";
+    playBtnImg.src = "assets/icons/play-fill.svg";
     audioElement.pause();
 }
 
@@ -153,8 +163,15 @@ function progressNow(audioElement, times, isList=false) {
     }
     if (isList === false) {
         playBtnControl(audioElement);
+        loopDiv.style.display = "flex";
+        autoPlayDiv.style.display = "flex";
+        autoPlayDiv.style.opacity = "0";
     } else if (isList === true) {
-        playBtnControl(audioElement, true);
+        autoPlayDiv.classList.add("active-div");
+        autoPlayDiv.style.display = "flex";
+        loopDiv.style.display = "none";
+        shuffleDiv.style.display = "flex";
+        playBtnControl(audioElement, isList=true);
     }
 
     globalThis.progressInterval = setInterval(() => {
@@ -197,15 +214,30 @@ function progressNow(audioElement, times, isList=false) {
         progressBar.style.width = progressPercentageInStr;
 
         if (timeNow >= audioElement.duration) {
-            if (isList) {
-                nextBtn.click();
+            const autoPlayDivClass = autoPlayDiv.classList;
+            const shuffleDivClass = shuffleDiv.classList;
+            const loopDivClass = loopDiv.classList;
+            if (isList && autoPlayDivClass.contains("active-div")) {
+                if (shuffleDivClass.contains("active-div")) {
+                    let randomMusicTitleID = Math.floor(Math.random() * musicInputFile.files.length);
+                    let randomTrackElement = document.querySelector(`div#track-${randomMusicTitleID}`);
+                    trackControl(randomTrackElement);
+                } else {
+                    nextBtn.click();
+                }
+            } else if (!isList && loopDivClass.contains("active-div")) {
+                audioElement.currentTime = 0;
+                clearInterval(progressInterval);
+                clearInterval(progressBarInterval);
+                playAudio(audioElement);
+                progressNow(audioElement);
             } else {
-                playBtnImg.src = "assets/play-fill.svg";
+                playBtnImg.src = "assets/icons/play-fill.svg";
+                clearInterval(progressInterval);
+                clearInterval(progressBarInterval);
                 playBtn.addEventListener("click", () => {
-                    clearInterval(progressInterval);
-                    clearInterval(progressBarInterval);
                     playAudio(audioElement);
-                    progressNow(audioElement);
+                    progressNow(audioElement, isList=true);
                 });
             }
         }

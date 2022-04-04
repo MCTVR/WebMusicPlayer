@@ -26,11 +26,11 @@
             fileHandlerMob.src = "js/fileHandler.mobile.js";
             document.head.appendChild(fileHandlerMob);
 
-            // if ("serviceWorker" in navigator) {
-            //     navigator.serviceWorker.register("sw.mobile.js")
-            //     .then(res => console.log("Service Worker Registered"))
-            //     .catch(err => console.log("Service Worker Failed to Register", err));   
-            // } 
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("sw.mobile.js")
+                .then(res => console.log("Service Worker Registered"))
+                .catch(err => console.log("Service Worker Failed to Register", err));   
+            } 
         }
         else if (window.mobileCheck() === false) {
             let ui = document.createElement("script");
@@ -43,11 +43,11 @@
             fileHandler.src = "js/fileHandler.js";
             document.head.appendChild(fileHandler);
 
-            // if ("serviceWorker" in navigator) {
-            //     navigator.serviceWorker.register("sw.js")
-            //     .then(res => console.log("Service Worker Registered"))
-            //     .catch(err => console.log("Service Worker Failed to Register", err));
-            // }
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("sw.js")
+                .then(res => console.log("Service Worker Registered"))
+                .catch(err => console.log("Service Worker Failed to Register", err));
+            }
         }
     </script>
     <link rel="stylesheet" media="only screen and (max-width: 480px)" href="css/index.mobile.css" />
@@ -95,6 +95,9 @@
                             </div>
                         </div>
                         <div class="music-controls-icon-container">
+                            <div class="music-controls-divs" id="autoplay-div">
+                                <img src="assets/icons/autoplay.svg" class="music-controls-divs-imgs" />
+                            </div>
                             <div class="music-controls-icon" id="backward-icon">
                                 <img src="assets/icons/skip-backward-fill.svg" draggable="false" alt="Skip/Backward">
                             </div>
@@ -104,6 +107,12 @@
                             <div class="music-controls-icon" id="forward-icon">
                                 <img src="assets/icons/skip-forward-fill.svg" draggable="false" alt="Skip/Forward">
                             </div>
+                            <div class="music-controls-divs" id="loop-div">
+                                <img src="assets/icons/infinite.svg" class="music-controls-divs-imgs" />
+                            </div>
+                            <div class="music-controls-divs" id="shuffle-div">
+                                <img src="assets/icons/shuffle.svg" class="music-controls-divs-imgs" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -112,15 +121,9 @@
 
             <div class="sidebar">
                 <div class="sidebar-header">
-                    <div class="sidebar-header-divs" id="autoplay-div">
-                        <img src="assets/icons/autoplay.svg" class="sidebar-header-div-imgs" />
-                    </div>
-                    <div class="sidebar-header-divs" id="loop-div">
-                        <img src="assets/icons/infinite.svg" class="sidebar-header-div-imgs" />
-                    </div>
-                    <div class="sidebar-header-divs" id="shuffle-div">
-                        <img src="assets/icons/shuffle.svg" class="sidebar-header-div-imgs" />
-                    </div>
+
+
+
                 </div>
                 <div class="music-list-container">
                     <div class="music-list">

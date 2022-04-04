@@ -1,4 +1,4 @@
-const WebMusicPlayer = "WebMusicPlayer";
+const WebMusicPlayer = "WebMusicPlayerV1.0.2";
 
 const assets = [
     "./",
@@ -14,6 +14,9 @@ const assets = [
     "./assets/icons/pause-fill.svg",
     "./assets/icons/skip-forward-fill.svg",
     "./assets/icons/skip-backward-fill.svg",
+    "./assets/icons/autoplay.svg",
+    "./assets/icons/infinite.svg",
+    "./assets/icons/shuffle.svg",
     "./assets/icons/plus.webp",
     "./assets/icons/music-art-default.webp",
     "./assets/logo/icon@32.png",

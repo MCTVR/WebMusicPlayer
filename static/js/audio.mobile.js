@@ -1,6 +1,6 @@
 import { progressNow, playBtnControl } from "./ui.mobile.js";
 
-let audioElement = new Audio();
+globalThis.audioElement = new Audio();
 let times = 0;
 
 function audio(file, trackCtl=false) {
