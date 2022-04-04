@@ -7,8 +7,8 @@
     <meta name="theme-color" content="#00FFFF00">
     <meta name="description" content="Play local audio files with your browser!">
     <link rel="manifest" href="manifest.json" />
-    <link rel="icon" href="assets/icon@32.png" />
-    <link rel="apple-touch-icon" href="assets/icon@196Mask.png" />
+    <link rel="icon" href="assets/logo/icon@32.png" />
+    <link rel="apple-touch-icon" href="assets/logo/icon@196Mask.png" />
     <script>
         window.mobileCheck = function() {
             let check = false;
@@ -26,11 +26,11 @@
             fileHandlerMob.src = "js/fileHandler.mobile.js";
             document.head.appendChild(fileHandlerMob);
 
-            if ("serviceWorker" in navigator) {
-                navigator.serviceWorker.register("sw.mobile.js")
-                .then(res => console.log("Service Worker Registered"))
-                .catch(err => console.log("Service Worker Failed to Register", err));   
-            } 
+            // if ("serviceWorker" in navigator) {
+            //     navigator.serviceWorker.register("sw.mobile.js")
+            //     .then(res => console.log("Service Worker Registered"))
+            //     .catch(err => console.log("Service Worker Failed to Register", err));   
+            // } 
         }
         else if (window.mobileCheck() === false) {
             let ui = document.createElement("script");
@@ -43,11 +43,11 @@
             fileHandler.src = "js/fileHandler.js";
             document.head.appendChild(fileHandler);
 
-            if ("serviceWorker" in navigator) {
-                navigator.serviceWorker.register("sw.js")
-                .then(res => console.log("Service Worker Registered"))
-                .catch(err => console.log("Service Worker Failed to Register", err));
-            }
+            // if ("serviceWorker" in navigator) {
+            //     navigator.serviceWorker.register("sw.js")
+            //     .then(res => console.log("Service Worker Registered"))
+            //     .catch(err => console.log("Service Worker Failed to Register", err));
+            // }
         }
     </script>
     <link rel="stylesheet" media="only screen and (max-width: 480px)" href="css/index.mobile.css" />
@@ -63,7 +63,7 @@
                 <div class="player-area">
                     <div class="music-art">
                         <input id="music-input-file" type="file" accept="audio/*" hidden multiple>
-                        <img class="music-art-img" src="assets/plus.webp" alt="">
+                        <img class="music-art-img" src="assets/icons/plus.webp" alt="">
                     </div>
 
                     <div class="music-info">
@@ -96,13 +96,13 @@
                         </div>
                         <div class="music-controls-icon-container">
                             <div class="music-controls-icon" id="backward-icon">
-                                <img src="assets/skip-backward-fill.svg" draggable="false" alt="Skip/Backward">
+                                <img src="assets/icons/skip-backward-fill.svg" draggable="false" alt="Skip/Backward">
                             </div>
                             <div class="music-controls-icon" id="play-icon">
-                                <img src="assets/play-fill.svg" draggable="false" alt="Play" />
+                                <img src="assets/icons/play-fill.svg" draggable="false" alt="Play" />
                             </div>
                             <div class="music-controls-icon" id="forward-icon">
-                                <img src="assets/skip-forward-fill.svg" draggable="false" alt="Skip/Forward">
+                                <img src="assets/icons/skip-forward-fill.svg" draggable="false" alt="Skip/Forward">
                             </div>
                         </div>
                     </div>
@@ -112,6 +112,15 @@
 
             <div class="sidebar">
                 <div class="sidebar-header">
+                    <div class="sidebar-header-divs" id="autoplay-div">
+                        <img src="assets/icons/autoplay.svg" class="sidebar-header-div-imgs" />
+                    </div>
+                    <div class="sidebar-header-divs" id="loop-div">
+                        <img src="assets/icons/infinite.svg" class="sidebar-header-div-imgs" />
+                    </div>
+                    <div class="sidebar-header-divs" id="shuffle-div">
+                        <img src="assets/icons/shuffle.svg" class="sidebar-header-div-imgs" />
+                    </div>
                 </div>
                 <div class="music-list-container">
                     <div class="music-list">

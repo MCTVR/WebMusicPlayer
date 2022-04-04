@@ -4,6 +4,10 @@ const playBtn = document.querySelector("div#play-icon");
 const playBtnImg = document.querySelector("div#play-icon").querySelector("img");
 const nextBtn = document.querySelector("div#forward-icon").querySelector("img");
 const prevBtn = document.querySelector("div#backward-icon").querySelector("img");
+const sidebarHeaderDivs = document.querySelectorAll("div.sidebar-header-divs");
+const autoPlayDiv = document.querySelector("div#autoplay-div");
+const loopDiv = document.querySelector("div#loop-div");
+const shuffleDiv = document.querySelector("div#shuffle-div");
 const progressNowSpan = document.querySelector("span#progress-now-span");
 const progressDurationSpan = document.querySelector("span#progress-duration-span");
 const progressBar = document.querySelector("div.progress-bar");
@@ -119,6 +123,48 @@ function buildTrack(file, id, imgSrc, trackTitle, trackArtist) {
     });
 }
 
+sidebarHeaderDivs.forEach(div => {
+    div.addEventListener("mouseover", () => {
+        anime.remove(div);
+        anime({
+            targets: div,
+            scale: 1.01,
+            duration: 600,
+            elasticity: 400,
+        });
+    });
+    div.addEventListener("mouseleave", () => {
+        anime.remove(div);
+        anime({
+            targets: div,
+            scale: 1,
+            duration: 600,
+            elasticity: 400,
+        });
+    });
+    div.addEventListener("mousedown", () => {
+        anime.remove(div);
+        anime({
+            targets: div,
+            scale: 0.98,
+            duration: 600,
+            elasticity: 400,
+        });
+    });
+    div.addEventListener("mouseup", () => {
+        anime.remove(div);
+        anime({
+            targets: div,
+            scale: 1,
+            duration: 600,
+            elasticity: 400,
+        });
+    });
+    div.addEventListener("click", () => {
+        div.classList.toggle("active-sidebar-header-div");
+    });
+});
+
 playBtn.addEventListener("mouseover", () => {
     anime({
         targets: playBtn,
@@ -156,12 +202,12 @@ playBtn.addEventListener("mouseup", () => {
 });
 
 function playAudio(audioElement) {
-    playBtnImg.src = "assets/pause-fill.svg";
+    playBtnImg.src = "assets/icons/pause-fill.svg";
     audioElement.play();
 }
 
 function pauseAudio(audioElement) {
-    playBtnImg.src = "assets/play-fill.svg";
+    playBtnImg.src = "assets/icons/play-fill.svg";
     audioElement.pause();
 }
 
@@ -237,7 +283,10 @@ function trackControl(trackElement) {
 }
 
 function progressNow(audioElement, times, isList=false) {
-    
+    if (isList) {
+        autoPlayDiv.classList.add("active-sidebar-header-div");
+        loopDiv.classList.add("active-sidebar-header-div");
+    }
     if (times > 1) {
         try {
             clearInterval(progressInterval);
@@ -290,13 +339,14 @@ function progressNow(audioElement, times, isList=false) {
         progressBar.style.width = progressPercentageInStr;
 
         if (timeNow >= audioElement.duration) {
-            if (isList) {
+            const autoPlayDivClass = autoPlayDiv.classList;
+            if (isList && autoPlayDivClass.contains("active-sidebar-header-div")) {
                 nextBtn.click();
             } else {
-                playBtnImg.src = "assets/play-fill.svg";
+                playBtnImg.src = "assets/icons/play-fill.svg";
+                clearInterval(progressInterval);
+                clearInterval(progressBarInterval);
                 playBtn.addEventListener("click", () => {
-                    clearInterval(progressInterval);
-                    clearInterval(progressBarInterval);
                     playAudio(audioElement);
                     progressNow(audioElement);
                 });

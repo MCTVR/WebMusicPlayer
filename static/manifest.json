@@ -9,40 +9,40 @@
     "id": "/index.html",
     "icons": [
         {
-            "src": "assets/icon@32.png",
+            "src": "assets/logo/icon@32.png",
             "type": "image/png", "sizes": "32x32"
         },
         {
-            "src": "assets/icon@64.png",
+            "src": "assets/logo/icon@64.png",
             "type": "image/png", "sizes": "64x64"
         },
         {
-            "src": "assets/icon@128.png",
+            "src": "assets/logo/icon@128.png",
             "type": "image/png", "sizes": "128x128"
         },
         {
-            "src": "assets/icon@192.png",
+            "src": "assets/logo/icon@192.png",
             "type": "image/png", "sizes": "192x192"
         },
         {
-            "src": "assets/icon@196.png",
+            "src": "assets/logo/icon@196.png",
             "type": "image/png", "sizes": "196x196"
         },
         {
-            "src": "assets/icon@196Mask.png",
+            "src": "assets/logo/icon@196Mask.png",
             "type": "image/png", "sizes": "196x196",
             "purpose": "any maskable"
         },
         {
-            "src": "assets/icon@256.png",
+            "src": "assets/logo/icon@256.png",
             "type": "image/png", "sizes": "256x256"
         },
         {
-            "src": "assets/icon@384.png",
+            "src": "assets/logo/icon@384.png",
             "type": "image/png", "sizes": "384x384"
         },
         {
-            "src": "assets/icon@512.png",
+            "src": "assets/logo/icon@512.png",
             "type": "image/png", "sizes": "512x512"
         }
     ]
