@@ -28,7 +28,10 @@
 
             if ("serviceWorker" in navigator) {
                 navigator.serviceWorker.register("sw.mobile.js")
-                .then(res => console.log("Service Worker Registered"))
+                .then((res) => {
+                    if (navigator.onLine) { res.update().then(() => { console.log("Service Worker Updated"); }); }
+                    console.log("Service Worker Registered");
+                })
                 .catch(err => console.log("Service Worker Failed to Register", err));   
             } 
         }
@@ -45,7 +48,10 @@
 
             if ("serviceWorker" in navigator) {
                 navigator.serviceWorker.register("sw.js")
-                .then(res => console.log("Service Worker Registered"))
+                .then((res) => {
+                    if (navigator.onLine) { res.update().then(() => { console.log("Service Worker Updated"); }); }
+                    console.log("Service Worker Registered");
+                })
                 .catch(err => console.log("Service Worker Failed to Register", err));
             }
         }
