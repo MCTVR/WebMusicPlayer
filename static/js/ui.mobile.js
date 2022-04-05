@@ -167,7 +167,6 @@ function progressNow(audioElement, times, isList=false) {
         autoPlayDiv.style.display = "flex";
         autoPlayDiv.style.opacity = "0";
     } else if (isList === true) {
-        autoPlayDiv.classList.add("active-div");
         autoPlayDiv.style.display = "flex";
         loopDiv.style.display = "none";
         shuffleDiv.style.display = "flex";
@@ -230,14 +229,24 @@ function progressNow(audioElement, times, isList=false) {
                 clearInterval(progressInterval);
                 clearInterval(progressBarInterval);
                 playAudio(audioElement);
-                progressNow(audioElement);
+                progressNow(audioElement, times=1, isList=false);
+            } else if (!isList && !loopDivClass.contains("active-div")) {
+                audioElement.currentTime = 0;
+                clearInterval(progressInterval);
+                clearInterval(progressBarInterval);
+                pauseAudio(audioElement);
+                playBtnImg.src = "assets/icons/play.svg";
+                playBtn.addEventListener("click", () => {
+                    playAudio(audioElement);
+                    progressNow(audioElement, times=1, isList=false);
+                });
             } else {
                 playBtnImg.src = "assets/icons/play-fill.svg";
                 clearInterval(progressInterval);
                 clearInterval(progressBarInterval);
                 playBtn.addEventListener("click", () => {
                     playAudio(audioElement);
-                    progressNow(audioElement, isList=true);
+                    progressNow(audioElement, times=1, isList=true);
                 });
             }
         }

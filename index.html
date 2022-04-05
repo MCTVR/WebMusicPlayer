@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Web Music Player</title>
-    <meta name="theme-color" content="#00FFFF00">
+    <meta name="theme-color" content="#00FAFF00">
     <meta name="description" content="Play local audio files with your browser!">
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="assets/logo/icon@32.png" />
@@ -16,6 +16,14 @@
             return check;
         };
         if (window.mobileCheck() === true) {
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("sw.mobile.js")
+                .then((res) => {
+                    if (navigator.onLine) { res.update().then(() => { console.log("Service Worker Updated"); }); }
+                    console.log("Service Worker Registered");
+                })
+                .catch(err => console.log("Service Worker Failed to Register", err));   
+            } 
             let uiMob = document.createElement("script");
             uiMob.type = "module";
             uiMob.src = "js/ui.mobile.js";
@@ -25,17 +33,20 @@
             fileHandlerMob.defer = true;
             fileHandlerMob.src = "js/fileHandler.mobile.js";
             document.head.appendChild(fileHandlerMob);
-
-            if ("serviceWorker" in navigator) {
-                navigator.serviceWorker.register("sw.mobile.js")
-                .then((res) => {
-                    if (navigator.onLine) { res.update().then(() => { console.log("Service Worker Updated"); }); }
-                    console.log("Service Worker Registered");
-                })
-                .catch(err => console.log("Service Worker Failed to Register", err));   
-            } 
         }
         else if (window.mobileCheck() === false) {
+            if ("serviceWorker" in navigator) {
+                navigator.serviceWorker.register("sw.js")
+                .then((res) => {
+                    if (navigator.onLine) { 
+                        res.update().then(() => { 
+                            console.log("Service Worker Updated"); 
+                        }); 
+                    }
+                    console.log("Service Worker Registered");
+                })
+                .catch(err => console.log("Service Worker Failed to Register", err));
+            }
             let ui = document.createElement("script");
             ui.type = "module";
             ui.src = "js/ui.js";
@@ -45,15 +56,6 @@
             fileHandler.defer = true;
             fileHandler.src = "js/fileHandler.js";
             document.head.appendChild(fileHandler);
-
-            if ("serviceWorker" in navigator) {
-                navigator.serviceWorker.register("sw.js")
-                .then((res) => {
-                    if (navigator.onLine) { res.update().then(() => { console.log("Service Worker Updated"); }); }
-                    console.log("Service Worker Registered");
-                })
-                .catch(err => console.log("Service Worker Failed to Register", err));
-            }
         }
     </script>
     <link rel="stylesheet" media="only screen and (max-width: 480px)" href="css/index.mobile.css" />
@@ -126,11 +128,6 @@
             </div>
 
             <div class="sidebar">
-                <div class="sidebar-header">
-
-
-
-                </div>
                 <div class="music-list-container">
                     <div class="music-list">
 

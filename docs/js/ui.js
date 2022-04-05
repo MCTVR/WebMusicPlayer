@@ -217,6 +217,29 @@ function playBtnControl(audioElement, play=false) {
         let times = 0;
 
         play ? playAudio(audioElement) : pauseAudio(audioElement);
+
+        document.addEventListener("keydown", (e) => {
+            if (e.code === "Space") {
+                if (play) {
+                    times = 0;
+                    pauseAudio(audioElement);
+                    play = false;
+                } else {
+                    times += 1;
+                    if (times % 2 !== 0) {
+                        times = 1;
+                        playAudio(audioElement);
+                    } else if (times % 2 === 0) {
+                        times = 0;
+                        pauseAudio(audioElement);
+                    }
+                }
+            } else if (e.code === "ArrowRight") {
+                audioElement.currentTime += 2.5;
+            } else if (e.code === "ArrowLeft") {
+                audioElement.currentTime -= 2.5;
+            }
+        });
         
         playBtnImg.addEventListener("click", () => {
             if (play) {
@@ -235,6 +258,34 @@ function playBtnControl(audioElement, play=false) {
             }
         });
 
+        navigator.mediaSession.setActionHandler("play", () => {
+            if (play) {
+                times = 0;
+                pauseAudio(audioElement);
+                play = false;
+            } else {
+                times += 1;
+                if (times % 2 !== 0) {
+                    times = 1;
+                    playAudio(audioElement);
+                }
+            }
+        });
+        
+        navigator.mediaSession.setActionHandler("pause", () => {
+            if (play) {
+                times = 0;
+                pauseAudio(audioElement);
+                play = false;
+            } else {
+                times += 1;
+                if (times % 2 === 0) {
+                    times = 0;
+                    pauseAudio(audioElement);
+                }
+            }
+        });
+
     });
 
 }
@@ -246,7 +297,11 @@ function triggerMouseEvent (node, eventType) {
     } catch (e) {}
 }
 
-nextBtn.addEventListener("click", () => {
+function trackControl(trackElement) {
+    triggerMouseEvent(trackElement, "mouseup");
+}
+
+function nextTrack() {
     let musicTitleID = document.querySelector("div.music-title").id.split("-")[1];
 
     if (musicTitleID < musicInputFile.files.length - 1) {
@@ -258,10 +313,9 @@ nextBtn.addEventListener("click", () => {
         let nextTrackElement = document.querySelector(`div#track-${nextMusicTitleID}`);
         trackControl(nextTrackElement);
     }
+}
 
-});
-
-prevBtn.addEventListener("click", () => {
+function prevTrack() {
     let musicTitleID = document.querySelector("div.music-title").id.split("-")[1];
     
     if (musicTitleID > 0) {
@@ -274,17 +328,26 @@ prevBtn.addEventListener("click", () => {
         let prevTrackElement = document.querySelector(`div#track-${prevMusicTitleID}`);
         trackControl(prevTrackElement);
     }
+}
 
+nextBtn.addEventListener("click", () => {
+    nextTrack();
 });
 
+prevBtn.addEventListener("click", () => {
+    prevTrack();
+});
 
-function trackControl(trackElement) {
-    triggerMouseEvent(trackElement, "mouseup");
-}
+navigator.mediaSession.setActionHandler("nexttrack", () => {
+    nextTrack();
+});
+
+navigator.mediaSession.setActionHandler("previoustrack", () => {
+    prevTrack();
+});
 
 function progressNow(audioElement, times, isList=false) {
     if (isList) {
-        autoPlayDiv.classList.add("active-div");
         autoPlayDiv.style.display = "flex";
         loopDiv.style.display = "none";
         shuffleDiv.style.display = "flex";
@@ -362,14 +425,24 @@ function progressNow(audioElement, times, isList=false) {
                 clearInterval(progressInterval);
                 clearInterval(progressBarInterval);
                 playAudio(audioElement);
-                progressNow(audioElement);
-            } else {
+                progressNow(audioElement, times=1, isList=false);
+            } else if (!isList && !loopDivClass.contains("active-div")) {
+                audioElement.currentTime = 0;
+                clearInterval(progressInterval);
+                clearInterval(progressBarInterval);
+                pauseAudio(audioElement);
+                playBtnImg.src = "assets/icons/play.svg";
+                playBtn.addEventListener("click", () => {
+                    playAudio(audioElement);
+                    progressNow(audioElement, times=1, isList=false);
+                });
+            } else if (isList) {
                 playBtnImg.src = "assets/icons/play-fill.svg";
                 clearInterval(progressInterval);
                 clearInterval(progressBarInterval);
                 playBtn.addEventListener("click", () => {
                     playAudio(audioElement);
-                    progressNow(audioElement, isList=true);
+                    progressNow(audioElement, times=1, isList=true);
                 });
             }
         }

@@ -226,7 +226,7 @@ body {
 }
 
 .music-controls-divs-imgs {
-    filter: invert(95%) sepia(18%) saturate(0%) hue-rotate(53deg) brightness(103%) contrast(101%) opacity(.53);
+    filter: invert(95%) sepia(18%) saturate(0%) hue-rotate(53deg) brightness(103%) contrast(101%) opacity(.45);
     width: 28px;
     height: 28px;
     cursor: pointer;
@@ -264,8 +264,9 @@ body {
     cursor: pointer;
     width: 100%;
     border-radius: 5px;
-    background-color: rgba(240, 240, 240, .2);
-    backdrop-filter: blur(5px);
+    background-color: rgba(200, 200, 200, .22);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 4px rgba(0, 0, 0, .2);
     height: 80px;
     align-items: center;
     gap: 15px;
@@ -315,7 +316,7 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 100%;
-    text-shadow: 0 0 1px rgba(0, 0, 0, .2);
+    text-shadow: 0 0 2px rgba(0, 0, 0, .3);
 }
 
 .track-title-span {
@@ -326,7 +327,7 @@ body {
 .track-artist-span {
     font-size: 16px;
     font-weight: 300;
-    color: rgba(255, 255, 255, .8);
+    color: #fff;
 }
 
 .track-thumbnail {
