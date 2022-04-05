@@ -24,15 +24,15 @@ Try it here: <a src="<https://mctvr.github.io/WebMusicPlayer/>">https://mctvr.gi
 ## Playlist Controls
 
 <div style="display: flex; align-items: center; gap: 5px;">
-<img src="static/assets/icons/autoplay.svg" style="width: 20px; padding: 2px; border-radius: 5px; background-color: rgba(255,255,255, .8);"/>
+<img src="readme_assets/autoplay.webp"/>
 <span style="font-size: 22px;">Autoplay</span>
 </div>
 <div style="display: flex; align-items: center; gap: 5px;">
-<img src="static/assets/icons/shuffle.svg" style="width: 20px; padding: 2px; border-radius: 5px; background-color: rgba(255,255,255, .8);"/>
+<img src="readme_assets/shuffle.webp"/>
 <span style="font-size: 22px;">Shuffle</span>
 </div>
 <div style="display: flex; align-items: center; gap: 5px;">
-<img src="static/assets/icons/infinite.svg" style="width: 20px; padding: 2px; border-radius: 5px; background-color: rgba(255,255,255, .8);"/>
+<img src="readme_assets/infinite.webp"/>
 <span style="font-size: 22px;">Loop Indefinitely</span>
 </div>
 
