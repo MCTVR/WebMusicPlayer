@@ -23,17 +23,17 @@ Try it here: <a src="<https://mctvr.github.io/WebMusicPlayer/>">https://mctvr.gi
 
 ## Playlist Controls
 
-<div style="display: flex; align-items: center; gap: 5px;">
+<div>
 <img src="readme_assets/autoplay.webp"/>
-<span style="font-size: 22px;">Autoplay</span>
+<span style="font-size: 26px;">Autoplay</span>
 </div>
-<div style="display: flex; align-items: center; gap: 5px;">
+<div>
 <img src="readme_assets/shuffle.webp"/>
-<span style="font-size: 22px;">Shuffle</span>
+<span style="font-size: 26px;">Shuffle</span>
 </div>
-<div style="display: flex; align-items: center; gap: 5px;">
+<div>
 <img src="readme_assets/infinite.webp"/>
-<span style="font-size: 22px;">Loop Indefinitely</span>
+<span style="font-size: 26px;">Loop Indefinitely</span>
 </div>
 
 ## Supported Audio Files (Tested<sup>3</sup>, Stereo)
@@ -48,7 +48,7 @@ Try it here: <a src="<https://mctvr.github.io/WebMusicPlayer/>">https://mctvr.gi
 <sup>2</sup> .m4a with ALAC codec works on macOS Safari only.<br>
 <sup>3</sup> Common audio files are playable, check <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Audio_and_video_delivery/Cross-browser_audio_basics#audio_codec_support">Here</a> for more info.<br>
 
-### Welcome to Report Bugs and Request Features by Creating a New Issue in this Repository
+### Welcome to Report Bugs and Request Features by Creating a `New Issue` in this Repository
 
 ## Credits
 
