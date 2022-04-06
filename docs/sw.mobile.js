@@ -1,4 +1,4 @@
-const WebMusicPlayer = "WebMusicPlayerV1.0.3";
+const WebMusicPlayer = "WebMusicPlayerV1.0.3.1";
 
 const assets = [
     "./",
