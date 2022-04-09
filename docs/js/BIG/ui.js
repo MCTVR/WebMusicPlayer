@@ -349,12 +349,14 @@ navigator.mediaSession.setActionHandler("previoustrack", () => {
 function progressNow(audioElement, times, isList=false) {
     if (isList) {
         autoPlayDiv.style.display = "flex";
+        autoPlayDiv.style.opacity = "1";
         loopDiv.style.display = "none";
         shuffleDiv.style.display = "flex";
     } else {
         loopDiv.style.display = "flex";
         autoPlayDiv.style.display = "flex";
         autoPlayDiv.style.opacity = "0";
+        shuffleDiv.style.display = "none";
     }
 
     if (times > 1) {

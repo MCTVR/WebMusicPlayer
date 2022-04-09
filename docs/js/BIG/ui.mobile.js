@@ -166,8 +166,10 @@ function progressNow(audioElement, times, isList=false) {
         loopDiv.style.display = "flex";
         autoPlayDiv.style.display = "flex";
         autoPlayDiv.style.opacity = "0";
+        shuffleDiv.style.display = "none";
     } else if (isList === true) {
         autoPlayDiv.style.display = "flex";
+        autoPlayDiv.style.opacity = "1";
         loopDiv.style.display = "none";
         shuffleDiv.style.display = "flex";
         playBtnControl(audioElement, isList=true);

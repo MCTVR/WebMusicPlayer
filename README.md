@@ -1,6 +1,6 @@
 # WebMusicPlayer
 
-### Latest Version: 1.0.3.1
+### Latest Version: 1.0.3.2
 
 Try it here: <a src="<https://mctvr.github.io/WebMusicPlayer/>">https://mctvr.github.io/WebMusicPlayer/</a>
 
