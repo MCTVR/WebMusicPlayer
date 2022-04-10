@@ -433,7 +433,7 @@ function progressNow(audioElement, times, isList=false) {
                 clearInterval(progressInterval);
                 clearInterval(progressBarInterval);
                 pauseAudio(audioElement);
-                playBtnImg.src = "assets/icons/play.svg";
+                playBtnImg.src = "assets/icons/play-fill.svg";
                 playBtn.addEventListener("click", () => {
                     playAudio(audioElement);
                     progressNow(audioElement, times=1, isList=false);
