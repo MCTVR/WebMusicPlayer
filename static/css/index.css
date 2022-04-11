@@ -19,7 +19,22 @@ body {
     height: 100vh;
     width: 100vw;
     background-attachment: fixed;
-    background: linear-gradient(25deg, #3F2B96 0%, #A8C0FF 100%);
+    background: linear-gradient(25deg, #453396 0%, #90afff 100%);
+}
+
+.bg-img {
+    position: fixed;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    opacity: 0;
+    filter: blur(36px) brightness(85%);
+    -webkit-filter: blur(36px) brightness(85%);
+    -moz-filter: blur(36px) brightness(85%);
+    -o-filter: blur(36px) brightness(85%);
 }
 
 .player-container {
@@ -30,8 +45,8 @@ body {
     border-radius: 5px;
     z-index: 1;
     box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
-    background-color: rgba(255, 255, 255, .1);
-    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, .12);
+    backdrop-filter: blur(14px);
     transition: .4s;
 }
 
@@ -53,7 +68,7 @@ body {
 }
 
 .music-art:hover {
-    box-shadow: 0 0 20px 1px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, .5);
 }
 
 .music-art-img {
@@ -185,7 +200,7 @@ body {
     border-radius: 10px;
     width: 96%;
     height: 5px;
-    background-color: rgba(200, 200, 200, .5);
+    background-color: rgba(220, 220, 220, .5);
 }
 
 .progress-indicators-container {
@@ -195,13 +210,13 @@ body {
     font-size: 13px;
     user-select: none;
     -webkit-user-select: none;
+    color: rgba(255, 255, 255, .8);
 }
 
 .progress-now {
     width: 10%;
     height: 100%;
     text-align: left;
-    color: rgba(255, 255, 255, .7);
 }
 
 .seperator-div {
@@ -213,7 +228,6 @@ body {
 
 .progress-duration {
     width: 10%;
-    color: rgba(255, 255, 255, .7);
     text-align: right;
     height: 100%;
 }
@@ -271,8 +285,8 @@ body {
     cursor: pointer;
     width: calc(100% - 20px);
     border-radius: 5px;
-    background-color: rgba(200, 200, 200, .22);
-    backdrop-filter: blur(10px);
+    background-color: rgba(230, 230, 230, .22);
+    backdrop-filter: blur(14px);
     box-shadow: 0 0 4px rgba(0, 0, 0, .2);
     height: 80px;
     align-items: center;

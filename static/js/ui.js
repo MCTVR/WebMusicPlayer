@@ -18,6 +18,25 @@ const musicTitleSpan = document.querySelector("span#music-title-span");
 const musicArtistSpan = document.querySelector("span#music-artist-span");
 const musicResSpan = document.querySelector("span#music-res-span");
 const musicInputFile = document.querySelector("input#music-input-file");
+const bgImg = document.querySelector("div.bg-img");
+
+function makeGradient(imgEl) {
+    anime({
+        targets: bgImg,
+        opacity: 0,
+        duration: 380,
+        easing: "easeInOutQuad",
+        complete: () => {
+            bgImg.style.backgroundImage = `url(${imgEl.src})`;
+            anime({
+                targets: bgImg,
+                opacity: [0, 0.38],
+                duration: 900,
+                easing: "easeInOutQuad",
+            })
+        }
+    });
+}
 
 function buildTrack(file, id, imgSrc, trackTitle, trackArtist) {
     let trackTemplate = `
@@ -116,6 +135,7 @@ function buildTrack(file, id, imgSrc, trackTitle, trackArtist) {
                     musicTitleSpan.textContent = track.querySelector("span.track-title-span").textContent;
                     musicArtistSpan.textContent = track.querySelector("span.track-artist-span").textContent;
                     musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
+                    makeGradient(musicArtImg);
                     audio(musicInputFile.files[trackID], true);
                 }
             });
@@ -453,4 +473,4 @@ function progressNow(audioElement, times, isList=false) {
 
 }
 
-export { progressNow, buildTrack, playAudio, pauseAudio, playBtnControl };
+export { makeGradient, progressNow, buildTrack, playAudio, pauseAudio, playBtnControl };

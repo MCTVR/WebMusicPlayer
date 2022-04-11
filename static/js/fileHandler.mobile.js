@@ -1,5 +1,5 @@
 import audio from "./audio.mobile.js";
-import { buildTrack } from "./ui.mobile.js";
+import { makeGradient, buildTrack } from "./ui.mobile.js";
 const jsmediatags = window.jsmediatags;
 const musicArt = document.querySelector("div.music-art");
 const musicArtImg = document.querySelector("img.music-art-img");
@@ -31,14 +31,14 @@ function buildTrackWithInfo(files) {
                     let trackArtist = tag.tags.artist;
                     buildTrack(file, id, imgSrc, trackTitle, trackArtist);
                 } catch (error) {
-                    let imgSrc = "assets/music-art-default.webp";
+                    let imgSrc = "assets/icons/music-art-default.webp";
                     let trackTitle = file.name.slice(0,file.name.lastIndexOf("."));
                     let trackArtist = "";
                     buildTrack(file, id, imgSrc, trackTitle, trackArtist);
                 }
             },
             onError: async () => {
-                let imgSrc = "assets/music-art-default.webp";
+                let imgSrc = "assets/icons/music-art-default.webp";
                 let trackTitle = file.name.slice(0,file.name.lastIndexOf("."));
                 let trackArtist = "";
                 buildTrack(file, id, imgSrc, trackTitle, trackArtist);
@@ -64,19 +64,20 @@ function showMusicInfo(file) {
                     base64String += String.fromCharCode(data[i]);
                 }
                 musicArtImg.src = `data:${data.format};base64,${window.btoa(base64String)}`;
+                makeGradient(musicArtImg);
                 musicTitleSpan.textContent = tag.tags.title;
                 musicArtistSpan.textContent = tag.tags.artist;
                 musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
             } catch (error) {
                 musicTitleSpan.textContent = file.name.slice(0,file.name.lastIndexOf("."));
                 musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
-                musicArtImg.src = "assets/music-art-default.webp";
+                musicArtImg.src = "assets/icons/music-art-default.webp";
             }
         },
         onError: function(error) {
             musicTitleSpan.textContent = file.name.slice(0,file.name.lastIndexOf("."));
             musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
-            musicArtImg.src = "assets/music-art-default.webp";
+            musicArtImg.src = "assets/icons/music-art-default.webp";
         }
     });
 }

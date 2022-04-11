@@ -19,7 +19,22 @@ body {
     height: 100%;
     width: 100vw;
     background-attachment: fixed;
-    background: linear-gradient(25deg, #3F2B96 0%, #A8C0FF 100%);
+    background: linear-gradient(25deg, #453396 0%, #90afff 100%);
+}
+
+.bg-img {
+    position: fixed;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    opacity: 0;
+    filter: blur(16px) brightness(85%);
+    -webkit-filter: blur(16px) brightness(85%);
+    -moz-filter: blur(16px) brightness(85%);
+    -o-filter: blur(16px) brightness(85%);
 }
 
 .player-container {
@@ -27,10 +42,8 @@ body {
     height: 100%;
     overflow-y: scroll;
     z-index: 1;
-    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, .2);
-    background-color: rgba(255, 255, 255, .1);
-    backdrop-filter: blur(5px);
-    transition: .4s;
+    background-color: rgba(255, 255, 255, .12);
+    backdrop-filter: blur(8px);
 }
 
 .music-art {
@@ -41,12 +54,8 @@ body {
     border-radius: 5px;
     background-color: rgba(255, 255, 255, .1);
     backdrop-filter: blur(5px);
-    box-shadow: 0 0 10px 1px rgba(0, 0, 0, .5);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, .45);
     transition: .4s;
-}
-
-.music-art:hover {
-    box-shadow: 0 0 20px 1px rgba(0, 0, 0, .5);
 }
 
 .music-art-img {
@@ -137,7 +146,7 @@ body {
 }
 
 .music-controls-icon {
-    filter: invert(95%) sepia(18%) saturate(0%) hue-rotate(53deg) brightness(103%) contrast(101%) opacity(.5);
+    filter: invert(95%) sepia(18%) saturate(0%) hue-rotate(53deg) brightness(103%) contrast(101%) opacity(.54);
     cursor: pointer;
     width: 46px;
     height: 46px;
@@ -175,7 +184,7 @@ body {
     border-radius: 10px;
     width: 96%;
     height: 5px;
-    background-color: rgba(200, 200, 200, .5);
+    background-color: rgba(220, 220, 220, .5);
 }
 
 .progress-indicators-container {
@@ -185,6 +194,7 @@ body {
     font-size: 18px;
     user-select: none;
     -webkit-user-select: none;
+    color: rgba(255, 255, 255, .8);
 }
 
 .progress-now {
@@ -264,8 +274,8 @@ body {
     cursor: pointer;
     width: 100%;
     border-radius: 5px;
-    background-color: rgba(200, 200, 200, .22);
-    backdrop-filter: blur(10px);
+    background-color: rgba(210, 210, 210, .23);
+    backdrop-filter: blur(12px);
     box-shadow: 0 0 4px rgba(0, 0, 0, .2);
     height: 80px;
     align-items: center;
@@ -276,8 +286,9 @@ body {
 }
 
 .active-track {
-    background-color: rgba(0, 0, 255, 0.2);
-    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 255, 0.22);
+    box-shadow: 0 0 6px rgba(0, 0, 0, .2);
+    backdrop-filter: blur(12px);
 }
 
 .track-info {
