@@ -30,7 +30,7 @@ function makeGradient(imgEl) {
             bgImg.style.backgroundImage = `url(${imgEl.src})`;
             anime({
                 targets: bgImg,
-                opacity: [0, 0.38],
+                opacity: [0, 0.3],
                 duration: 900,
                 easing: "easeInOutQuad",
             })
@@ -116,7 +116,7 @@ function buildTrack(file, id, imgSrc, trackTitle, trackArtist) {
                 duration: 600,
                 elasticity: 400,
                 after: () => {
-                    tracks.forEach(track => {track.classList.remove("active-track");});
+                    tracks.forEach(track => { track.classList.remove("active-track"); });
                     track.classList.add("active-track");
                     let trackID = track.id.split("-")[1];
                     if (trackID > 6) {
@@ -134,7 +134,7 @@ function buildTrack(file, id, imgSrc, trackTitle, trackArtist) {
                     musicArtImg.src = track.querySelector("img").src;
                     musicTitleSpan.textContent = track.querySelector("span.track-title-span").textContent;
                     musicArtistSpan.textContent = track.querySelector("span.track-artist-span").textContent;
-                    musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
+                    musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".") + 1, file.name.length).toUpperCase();
                     makeGradient(musicArtImg);
                     audio(musicInputFile.files[trackID], true);
                 }
@@ -231,7 +231,7 @@ function pauseAudio(audioElement) {
     audioElement.pause();
 }
 
-function playBtnControl(audioElement, play=false) {
+function playBtnControl(audioElement, play = false) {
 
     audioElement.addEventListener("loadeddata", () => {
         let times = 0;
@@ -260,7 +260,7 @@ function playBtnControl(audioElement, play=false) {
                 audioElement.currentTime -= 2.5;
             }
         });
-        
+
         playBtnImg.addEventListener("click", () => {
             if (play) {
                 times = 0;
@@ -291,7 +291,7 @@ function playBtnControl(audioElement, play=false) {
                 }
             }
         });
-        
+
         navigator.mediaSession.setActionHandler("pause", () => {
             if (play) {
                 times = 0;
@@ -310,11 +310,11 @@ function playBtnControl(audioElement, play=false) {
 
 }
 
-function triggerMouseEvent (node, eventType) {
+function triggerMouseEvent(node, eventType) {
     let clickEvent = new MouseEvent(eventType);
     try {
         node.dispatchEvent(clickEvent);
-    } catch (e) {}
+    } catch (e) { }
 }
 
 function trackControl(trackElement) {
@@ -337,7 +337,7 @@ function nextTrack() {
 
 function prevTrack() {
     let musicTitleID = document.querySelector("div.music-title").id.split("-")[1];
-    
+
     if (musicTitleID > 0) {
         let musicTitleID = document.querySelector("div.music-title").id.split("-")[1];
         let prevMusicTitleID = parseInt(musicTitleID) - 1;
@@ -366,7 +366,7 @@ navigator.mediaSession.setActionHandler("previoustrack", () => {
     prevTrack();
 });
 
-function progressNow(audioElement, times, isList=false) {
+function progressNow(audioElement, times, isList = false) {
     if (isList) {
         autoPlayDiv.style.display = "flex";
         autoPlayDiv.style.opacity = "1";
@@ -386,13 +386,12 @@ function progressNow(audioElement, times, isList=false) {
         } catch (error) {
             console.log(error);
         }
-
     }
 
     playBtnControl(audioElement);
 
     globalThis.progressInterval = setInterval(() => {
-        
+
         let timeNow = audioElement.currentTime;
         let minutes = Math.floor(timeNow / 60);
         let seconds = Math.floor(timeNow - minutes * 60);
@@ -409,7 +408,7 @@ function progressNow(audioElement, times, isList=false) {
 
         let durationMinutes = Math.floor(duration / 60);
         let durationSeconds = Math.floor(duration - durationMinutes * 60);
-    
+
         if (durationSeconds <= 9) { durationSeconds = `0${durationSeconds}`; } else { durationSeconds = durationSeconds; }
 
         if (isNaN(durationMinutes) || isNaN(durationSeconds)) {
@@ -447,7 +446,7 @@ function progressNow(audioElement, times, isList=false) {
                 clearInterval(progressInterval);
                 clearInterval(progressBarInterval);
                 playAudio(audioElement);
-                progressNow(audioElement, times=1, isList=false);
+                progressNow(audioElement, times = 1, isList = false);
             } else if (!isList && !loopDivClass.contains("active-div")) {
                 audioElement.currentTime = 0;
                 clearInterval(progressInterval);
@@ -456,7 +455,7 @@ function progressNow(audioElement, times, isList=false) {
                 playBtnImg.src = "assets/icons/play-fill.svg";
                 playBtn.addEventListener("click", () => {
                     playAudio(audioElement);
-                    progressNow(audioElement, times=1, isList=false);
+                    progressNow(audioElement, times = 1, isList = false);
                 });
             } else if (isList) {
                 playBtnImg.src = "assets/icons/play-fill.svg";
@@ -464,7 +463,7 @@ function progressNow(audioElement, times, isList=false) {
                 clearInterval(progressBarInterval);
                 playBtn.addEventListener("click", () => {
                     playAudio(audioElement);
-                    progressNow(audioElement, times=1, isList=true);
+                    progressNow(audioElement, times = 1, isList = true);
                 });
             }
         }

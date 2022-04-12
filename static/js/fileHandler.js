@@ -15,7 +15,7 @@ function buildTrackWithInfo(files) {
         const file = files[id];
 
         if (file.type.indexOf("audio/x-m4a") != -1) {
-            file = new File([file], file.name.slice(0,file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
+            file = new File([file], file.name.slice(0, file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
         }
 
         jsmediatags.read(file, {
@@ -32,21 +32,23 @@ function buildTrackWithInfo(files) {
                     buildTrack(file, id, imgSrc, trackTitle, trackArtist);
                 } catch (error) {
                     let imgSrc = "assets/icons/music-art-default.webp";
-                    let trackTitle = file.name.slice(0,file.name.lastIndexOf("."));
+                    let trackTitle = file.name.slice(0, file.name.lastIndexOf("."));
                     let trackArtist = "";
                     buildTrack(file, id, imgSrc, trackTitle, trackArtist);
                 }
             },
             onError: async () => {
                 let imgSrc = "assets/icons/music-art-default.webp";
-                let trackTitle = file.name.slice(0,file.name.lastIndexOf("."));
+                let trackTitle = file.name.slice(0, file.name.lastIndexOf("."));
                 let trackArtist = "";
                 buildTrack(file, id, imgSrc, trackTitle, trackArtist);
             }
         });
     }
-    
+}
 
+function clearTrack() {
+    musicList.innerHTML = "";
 }
 
 function showMusicInfo(file) {
@@ -56,7 +58,7 @@ function showMusicInfo(file) {
     musicInputFile.value = "";
 
     jsmediatags.read(file, {
-        onSuccess: function(tag) {
+        onSuccess: function (tag) {
             try {
                 const { data, format } = tag.tags.picture;
                 let base64String = "";
@@ -67,23 +69,23 @@ function showMusicInfo(file) {
                 makeGradient(musicArtImg);
                 musicTitleSpan.textContent = tag.tags.title;
                 musicArtistSpan.textContent = tag.tags.artist;
-                musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
+                musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".") + 1, file.name.length).toUpperCase();
             } catch (error) {
-                musicTitleSpan.textContent = file.name.slice(0,file.name.lastIndexOf("."));
-                musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
+                musicTitleSpan.textContent = file.name.slice(0, file.name.lastIndexOf("."));
+                musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".") + 1, file.name.length).toUpperCase();
                 musicArtImg.src = "assets/icons/music-art-default.webp";
             }
         },
-        onError: function(error) {
-            musicTitleSpan.textContent = file.name.slice(0,file.name.lastIndexOf("."));
-            musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".")+1, file.name.length).toUpperCase();
+        onError: function (error) {
+            musicTitleSpan.textContent = file.name.slice(0, file.name.lastIndexOf("."));
+            musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".") + 1, file.name.length).toUpperCase();
             musicArtImg.src = "assets/icons/music-art-default.webp";
         }
     });
 }
 
 function loadFile() {
-        
+
     musicArt.addEventListener("click", () => {
         musicInputFile.click();
     });
@@ -92,17 +94,20 @@ function loadFile() {
         let files = musicInputFile.files;
 
         if (files.length > 1) {
-            
+
             buildTrackWithInfo(files);
 
         } else if (files.length === 1) {
+            clearTrack();
             let file = files[0];
 
             if (file.type.indexOf("audio/x-m4a") != -1) {
-                file = new File([file], file.name.slice(0,file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
+                file = new File([file], file.name.slice(0, file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
+                showMusicInfo(files[0]);
+            } else {
+                showMusicInfo(file);
             }
 
-            showMusicInfo(file);
             audio(file);
         }
 

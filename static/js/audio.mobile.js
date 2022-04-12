@@ -3,7 +3,7 @@ import { progressNow, playBtnControl } from "./ui.mobile.js";
 globalThis.audioElement = new Audio();
 let times = 0;
 
-function audio(file, trackCtl=false) {
+function audio(file, trackCtl = false) {
 
     if (times > 1) {
         times = 0;
@@ -13,14 +13,14 @@ function audio(file, trackCtl=false) {
         clearInterval(progressBarInterval);
         audioElement.removeAttribute("src");
     }
-    
+
     (async () => {
         times += 1;
         URL.revokeObjectURL(audioElement.src);
         audioElement.removeAttribute("src");
         try {
 
-            let blob = new Blob([ await file.arrayBuffer()], { type: file.type });
+            let blob = new Blob([await file.arrayBuffer()], { type: file.type });
             audioElement.crossOrigin = "anonymous";
             audioElement.src = URL.createObjectURL(blob);
             blob = null;
@@ -31,7 +31,7 @@ function audio(file, trackCtl=false) {
             } else {
                 progressNow(audioElement, times);
             }
-            
+
         } catch (error) {
             console.log(error);
         }

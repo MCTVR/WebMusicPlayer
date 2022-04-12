@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width; initial-scale=1; user-scalable=no; viewport-fit=cover">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Web Music Player</title>
     <meta name="description" content="Play local audio files with your browser!">
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="assets/logo/icon@32.png" />
     <link rel="apple-touch-icon" href="assets/logo/icon@196Mask.png" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#7f92e6">
     <script>
         window.mobileCheck = function() {
@@ -66,8 +67,7 @@
 </head>
 <body>
     <div class="bg">
-        <div class="bg-img">
-        </div>
+        <div class="bg-img"></div>
         <div class="player-container">
             <div class="player-area-container">
                 <div class="player-area">
