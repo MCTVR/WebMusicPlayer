@@ -22,26 +22,13 @@ body {
     background: linear-gradient(25deg, #453396 0%, #90afff 100%);
 }
 
-.bg-img {
-    position: absolute;
-    height: calc(100% + env(safe-area-inset-top));
-    width: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    filter: blur(20px) brightness(88%);
-    -webkit-filter: blur(20px) brightness(88%);
-    -moz-filter: blur(20px) brightness(88%);
-    -o-filter: blur(20px) brightness(88%);
-}
-
 .player-container {
     width: 100vw;
     height: 100vh;
     overflow-y: scroll;
     z-index: 1;
     background-color: rgba(230, 230, 255, .18);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(30px);
 }
 
 .music-art {
@@ -59,6 +46,8 @@ body {
     width: 100%;
     height: 100%;
     border-radius: inherit;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .player-area-container {
@@ -180,6 +169,7 @@ body {
 .progress {
     border-radius: 10px;
     width: 96%;
+    min-height: 5px;
     height: 5px;
     background-color: rgba(220, 220, 220, .5);
 }
@@ -225,7 +215,6 @@ body {
 .music-controls-divs {
     display: none;
     color: rgba(255, 255, 255, .8);
-    backdrop-filter: blur(2px);
     padding: 4px;
     border-radius: 5px;
     justify-content: center;

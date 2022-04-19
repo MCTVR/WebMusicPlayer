@@ -5,6 +5,8 @@
     "display": "standalone",
     "orientation": "portrait-primary",
     "id": "/index.html",
+    "background_color": "#7f92e6",
+    "theme_color": "#7f92e6",
     "icons": [
         {
             "src": "assets/logo/icon@32.png",

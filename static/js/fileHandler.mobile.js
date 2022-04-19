@@ -1,5 +1,5 @@
 import audio from "./audio.mobile.js";
-import { makeGradient, buildTrack } from "./ui.mobile.js";
+import { buildTrack } from "./ui.mobile.js";
 const jsmediatags = window.jsmediatags;
 const musicArt = document.querySelector("div.music-art");
 const musicArtImg = document.querySelector("img.music-art-img");
@@ -13,10 +13,6 @@ function buildTrackWithInfo(files) {
     musicList.innerHTML = "";
     for (let id = 0; id < files.length; id++) {
         const file = files[id];
-
-        if (file.type.indexOf("audio/x-m4a") != -1) {
-            file = new File([file], file.name.slice(0, file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
-        }
 
         jsmediatags.read(file, {
             onSuccess: async (tag) => {
@@ -66,10 +62,13 @@ function showMusicInfo(file) {
                     base64String += String.fromCharCode(data[i]);
                 }
                 musicArtImg.src = `data:${data.format};base64,${window.btoa(base64String)}`;
-                makeGradient(musicArtImg);
                 musicTitleSpan.textContent = tag.tags.title;
                 musicArtistSpan.textContent = tag.tags.artist;
-                musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".") + 1, file.name.length).toUpperCase();
+                if ( tag.type === "MP4" ) {
+                    musicResSpan.textContent = (tag.ftyp).replace(/ /g, "");
+                } else {
+                    musicResSpan.textContent = tag.type;
+                }
             } catch (error) {
                 musicTitleSpan.textContent = file.name.slice(0, file.name.lastIndexOf("."));
                 musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".") + 1, file.name.length).toUpperCase();
@@ -99,17 +98,13 @@ function loadFile() {
             buildTrackWithInfo(files);
 
         } else if (files.length === 1) {
+
             clearTrack();
             let file = files[0];
 
-            if (file.type.indexOf("audio/x-m4a") != -1) {
-                file = new File([file], file.name.slice(0, file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
-                showMusicInfo(files[0]);
-            } else {
-                showMusicInfo(file);
-            }
-
+            showMusicInfo(file);
             audio(file);
+
         }
 
     });

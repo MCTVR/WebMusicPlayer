@@ -15,7 +15,6 @@ def minifyCss(CSS_DIR):
     for f in os.listdir(CSS_DIR):
         if f.endswith(".min.css"):
             os.rename(CSS_DIR+f, CSS_DIR+f.replace(".min.css", ".css"))
-
     
 minifyJs(JS_DIR)
 

@@ -14,10 +14,6 @@ function buildTrackWithInfo(files) {
     for (let id = 0; id < files.length; id++) {
         const file = files[id];
 
-        if (file.type.indexOf("audio/x-m4a") != -1) {
-            file = new File([file], file.name.slice(0, file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
-        }
-
         jsmediatags.read(file, {
             onSuccess: async (tag) => {
                 try {
@@ -69,17 +65,23 @@ function showMusicInfo(file) {
                 makeGradient(musicArtImg);
                 musicTitleSpan.textContent = tag.tags.title;
                 musicArtistSpan.textContent = tag.tags.artist;
-                musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".") + 1, file.name.length).toUpperCase();
+                if ( tag.type === "MP4" ) {
+                    musicResSpan.textContent = (tag.ftyp).replace(/ /g, "");
+                } else {
+                    musicResSpan.textContent = tag.type;
+                }
             } catch (error) {
                 musicTitleSpan.textContent = file.name.slice(0, file.name.lastIndexOf("."));
                 musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".") + 1, file.name.length).toUpperCase();
                 musicArtImg.src = "assets/icons/music-art-default.webp";
+                document.querySelector("div.bg-img").style.backgroundImage = "";
             }
         },
         onError: function (error) {
             musicTitleSpan.textContent = file.name.slice(0, file.name.lastIndexOf("."));
             musicResSpan.textContent = file.name.slice(file.name.lastIndexOf(".") + 1, file.name.length).toUpperCase();
             musicArtImg.src = "assets/icons/music-art-default.webp";
+            document.querySelector("div.bg-img").style.backgroundImage = "";
         }
     });
 }
@@ -98,17 +100,13 @@ function loadFile() {
             buildTrackWithInfo(files);
 
         } else if (files.length === 1) {
+
             clearTrack();
             let file = files[0];
 
-            if (file.type.indexOf("audio/x-m4a") != -1) {
-                file = new File([file], file.name.slice(0, file.name.lastIndexOf(".")) + ".mp4", { type: "audio/mp4" });
-                showMusicInfo(files[0]);
-            } else {
-                showMusicInfo(file);
-            }
-
+            showMusicInfo(file);
             audio(file);
+
         }
 
     });

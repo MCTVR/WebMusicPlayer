@@ -29,10 +29,10 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100%;
-    filter: blur(20px) brightness(88%);
-    -webkit-filter: blur(20px) brightness(88%);
-    -moz-filter: blur(20px) brightness(88%);
-    -o-filter: blur(20px) brightness(88%);
+    filter: blur(40px);
+    -webkit-filter: blur(40px);
+    -moz-filter: blur(40px);
+    -o-filter: blur(40px);
 }
 
 .player-container {
@@ -70,6 +70,8 @@ body {
     width: 100%;
     height: 100%;
     border-radius: inherit;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .player-area-container {

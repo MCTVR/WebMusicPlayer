@@ -30,7 +30,7 @@ function makeGradient(imgEl) {
             bgImg.style.backgroundImage = `url(${imgEl.src})`;
             anime({
                 targets: bgImg,
-                opacity: [0, 0.3],
+                opacity: [0, .48],
                 duration: 900,
                 easing: "easeInOutQuad",
             })
