@@ -33,7 +33,7 @@ body {
 
 .music-art {
     cursor: pointer;
-    margin-top: calc(20% + env(safe-area-inset-top));
+    margin-top: calc(26% + env(safe-area-inset-top));
     width: 80vw;
     height: 80vw;
     border-radius: 5px;
