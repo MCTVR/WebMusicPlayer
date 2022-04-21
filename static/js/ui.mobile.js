@@ -1,4 +1,3 @@
-import anime from "./anime.es.js";
 import audio from "./audio.mobile.js";
 const playBtn = document.querySelector("div#play-icon");
 const playBtnImg = document.querySelector("div#play-icon").querySelector("img");
